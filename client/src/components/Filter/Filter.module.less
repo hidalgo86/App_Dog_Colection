@@ -1,0 +1,73 @@
+.input {
+  border-radius: 10px;
+}
+
+// @media (max-width: 600px) {
+  .form {
+    display: grid;
+    grid-template:
+      "temperament search" 70px
+      "breed search" 70px
+      "order search" 70px/
+      250px auto;
+
+    .temperament {
+      grid-area: temperament;
+      align-self: center;
+    }
+
+    .breed {
+      grid-area: breed;
+      align-self: center;
+    }
+
+    .order {
+      grid-area: order;
+      align-self: center;
+    }
+
+    .search {
+      grid-area: search;
+      width: 50px;
+      height: 50px;
+      border-radius: 999999px;
+      justify-self: center;
+      align-self: center;
+    }
+  }
+// }
+
+@media (min-width: 600px) {
+  .form {
+    display: flex;
+    flex: none;
+    justify-content: space-evenly;
+    padding-bottom: 5px;
+   
+    .temperament {
+      
+      .input {
+        width: 100px;
+      }
+    }
+
+    // .breed {
+ 
+    // }
+
+    // .order {
+    
+    // }
+
+    .search {
+   
+      width: 90px;
+      height: 25px;
+      font-size: 14px;
+      border-radius: 10px;
+    }
+  }
+  .input {
+    width: 100px;
+  }
+}

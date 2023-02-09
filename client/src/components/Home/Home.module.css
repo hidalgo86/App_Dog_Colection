@@ -1,0 +1,79 @@
+@media (max-width: 600px) {
+  .container {
+    display: grid;
+    grid: "navBar" "filter" "paginated";
+  }
+  .container .navBar {
+    grid-area: navBar;
+    text-align: center;
+    display: grid;
+    grid: "img img" "searchBar searchBar" "buttonFilter buttonEdit";
+    gap: 10px;
+  }
+  .container .navBar .img {
+    grid-area: img;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .container .navBar .img .image {
+    width: 200px;
+  }
+  .container .navBar .searchBar {
+    grid-area: searchBar;
+    display: flex;
+    justify-content: center;
+  }
+  .container .navBar .buttonFilter {
+    grid-area: buttonFilter;
+    width: 100%;
+  }
+  .container .navBar .buttonEdit {
+    grid-area: buttonEdit;
+    width: 100%;
+  }
+  .container .navBar .buttonEdit .Edit {
+    width: 100%;
+  }
+  .container .filter {
+    grid-area: filter;
+    margin: 10px 0 0 10px;
+  }
+  .container .paginated {
+    grid-area: paginated;
+    display: flex;
+    justify-content: center;
+  }
+}
+@media (min-width: 600px) {
+  .container {
+    display: grid;
+    grid: "navBar" 70px "filter" "paginated" auto / auto;
+  }
+  .container .navBar {
+    grid-area: navBar;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .container .navBar .img {
+    flex: initial;
+    margin-left: 20px;
+  }
+  .container .navBar .img .image {
+    width: 60px;
+  }
+  .container .navBar .searchBar {
+    flex: initial;
+  }
+  .container .navBar .buttonEdit {
+    flex: initial;
+    margin-right: 20px;
+  }
+  .container .navBar .buttonEdit .Edit {
+    width: 90px;
+    height: 25px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+}
