@@ -11,27 +11,11 @@ import {
 import axios from "axios";
 
 export const getAllDogs = () => {
-  // return async function (dispatch) {
-  //   try {
-  //     const response = await axios.get("/dogs");
-  //     dispatch({ type: GET_ALL_DOGS, payload: response.data });
-  //   } catch (error) {
-  //     dispatch({ type: GET_ALL_DOGS, payload: [error] })
-  //   }
-
   return function (dispatch) {
-    axios.get("/dogs").then(
+    axios.get("/dogsAll").then(
       (response) => dispatch({ type: GET_ALL_DOGS, payload: response.data }),
       (error) => dispatch({ type: GET_ALL_DOGS, payload: [error.message] })
     );
-
-    // return function (dispatch) {
-    // axios
-    //   .get("/dogs")
-    //   .then((response) =>
-    //     dispatch({ type: GET_ALL_DOGS, payload: response.data })
-    //   )
-    //   .catch((error) => dispatch({ type: GET_ALL_DOGS, payload: [error] }));
   };
 };
 
