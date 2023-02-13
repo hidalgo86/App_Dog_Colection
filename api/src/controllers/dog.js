@@ -1,12 +1,12 @@
 "use strict";
 
 const axios = require("axios");
-const { Dog, Temperament } = require("../db.js");
+const { Dog, Temperament } = require("../models/index").models;
 
 //Controladores de las rutas dogs
 const controller = {
   //Metodo para buscar todos los perros en db y api externa:
-  dogsAll: async (req, res) => {
+  dogAll: async (req, res) => {
     try {
       let { name } = req.query;
       let get_dogs_api = await get_dogs_api_externa();
@@ -22,26 +22,29 @@ const controller = {
 
       res.status(200).send(dogs);
     } catch (error) {
+      console.log(error);
       res.send({ error: error.message });
     }
   },
 
   //Metodo para buscar todos los perros en api externa:
-  dogsApi: async (req, res) => {
+  dogApi: async (req, res) => {
     try {
       let get_dogs_api = await get_dogs_api_externa();
       res.status(200).send(get_dogs_api);
     } catch (error) {
+      console.log(error);
       res.send({ error: error.message });
     }
   },
 
   //Metodo para buscar todos los perros en db:
-  dogsDb: async (req, res) => {
+  dogDb: async (req, res) => {
     try {
       let get_dogs_db = await get_dogs_db_postgres(Dog);
       res.status(200).send(get_dogs_db);
     } catch (error) {
+      console.log(error);
       res.send({ error: error.message });
     }
   },
@@ -59,8 +62,9 @@ const controller = {
       });
       await dog.addTemperaments(temperament);
 
-      res.status(200).json({mensaje: "Creado con éxito"});
+      res.status(200).json({ mensaje: "Dog creado con éxito" });
     } catch (error) {
+      console.log(error);
       res.send({ error: error.message });
     }
   },
@@ -71,7 +75,7 @@ const controller = {
       let { id } = req.params;
       let { name, height, weight, lifeSpan, temperament } = req.body;
 
-      let dog = await Dog.findOne({id});
+      let dog = await Dog.findOne({ id });
 
       dog.update({
         name,
@@ -79,9 +83,10 @@ const controller = {
         weight,
         lifeSpan,
       });
-    
-      res.status(200).json({mensaje: "Actualizado con éxito"});
+
+      res.status(200).json({ mensaje: "Dog actualizado con éxito" });
     } catch (error) {
+      console.log(error);
       res.send({ error: error.message });
     }
   },
@@ -91,8 +96,9 @@ const controller = {
     try {
       let { id } = req.params;
       await Dog.destroy({ where: { id } });
-      res.status(200).json({ mensaje: "Eliminado con éxito" });
+      res.status(200).json({ mensaje: "Dog eliminado con éxito" });
     } catch (error) {
+      console.log(error);
       res.send({ error: error.message });
     }
   },

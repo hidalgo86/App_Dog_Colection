@@ -1,9 +1,10 @@
 "use strict";
+const { DataTypes } = require("sequelize");
 
-module.exports = (sequelize, DataTypes) => {
-  const Dog = sequelize.define(
-    "Dog",
-    {
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable("Dogs", {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -28,17 +29,10 @@ module.exports = (sequelize, DataTypes) => {
       lifeSpan: {
         type: DataTypes.STRING,
       },
-    },
-    {
-      timestamps: false,
-    }
-  );
-
-  Dog.associate = function (models) {
-    models.Dog.belongsToMany(models.Temperament, {
-      through: "Dog_Temperament",
     });
-  };
+  },
 
-  return Dog;
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable("Dogs");
+  },
 };

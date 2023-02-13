@@ -2,16 +2,14 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-// const routes = require("./routes/index.js");
 const cors = require("cors");
-require("./db.js");
-const { CORS_URL } = process.env
+require("./models");
+const { CORS_URL } = process.env;
 
 const server = express();
-
 server.name = "API";
 
-server.use(cors())
+server.use(cors());
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
@@ -27,16 +25,17 @@ server.use((req, res, next) => {
   next();
 });
 
+const user_routes = require("./routes/user");
+const authorization_routes = require("./routes/authorization");
+const temperament_routes = require("./routes/temperament");
+const dog_routes = require("./routes/dog");
 
-const temperaments_routes = require("./routes/temperaments.js");
-const dogs_routes = require("./routes/dogs.js"); 
+server.use("/api", user_routes);
+server.use("/api", authorization_routes);
+server.use("/api", dog_routes);
+server.use("/api", temperament_routes);
 
-server.use("/api", dogs_routes)
-server.use("/api", temperaments_routes);
-
-// Error catching endware.
 server.use((err, req, res, next) => {
-  // eslint-disable-line no-unused-vars
   const status = err.status || 500;
   const message = err.message || err;
   console.error(err);

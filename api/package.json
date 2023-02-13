@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon .",
-    "test": "mocha -w ./tests/**/*.spec.js"
+    "test": "mocha -w ./tests/**/*.spec.js",
+    "migration": "npx sequelize-cli db:migrate",
+    "new-migration": "npx sequelize-cli migration:generate --name",
+    "delete-migration": "npx sequelize-cli db:migrate:undo",
+    "delete-migration-all": "npx sequelize-cli db:migrate:undo:all",
+    "seeder": "npx sequelize-cli db:seed:all"
   },
   "author": "Henry",
   "license": "ISC",
@@ -20,6 +25,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
     "node-fetch": "^3.2.8",
     "nodemon": "^2.0.19",
