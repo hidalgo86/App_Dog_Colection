@@ -1,5 +1,3 @@
-"use strict";
-
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
@@ -11,6 +9,7 @@ import store from "./redux/store";
 import { BrowserRouter } from "react-router-dom";
 import dotenv from "dotenv";
 dotenv.config();
+
 
 // la URL_base de las llamadas axios
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";

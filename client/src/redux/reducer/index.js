@@ -1,58 +1,43 @@
-'use strict'
-
 //acciones para el cambio de estado
-import {
-  GET_ALL_DOGS,
-  GET_NAME_DOGS,
-  GET_FILTER_DOGS,
-  GET_DETAIL_DOG,
-  POST_CREATE_DOGS,
-  GET_TEMPERAMENTS,
-} from "../types";
+import { GET_DOG_All, GET_DOG_API, GET_DOG_DB, GET_DOG_NAME, GET_TEMPERAMENT } from "../types";
 
 // Estado Global inicial de redux
 const initialState = {
   dogs: [],
   detail: [],
-  temperaments: [],
+  temperament: [],
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_ALL_DOGS:
+    case GET_DOG_All:
       return {
         ...state,
         dogs: action.payload,
       };
 
-    case GET_NAME_DOGS:
+    case GET_DOG_API:
       return {
         ...state,
         dogs: action.payload,
       };
 
-    case GET_FILTER_DOGS:
+    case GET_DOG_DB:
       return {
         ...state,
         dogs: action.payload,
       };
 
-    case GET_DETAIL_DOG:
+    case GET_DOG_NAME:
       return {
         ...state,
         detail: action.payload,
       };
 
-    case POST_CREATE_DOGS:
+    case GET_TEMPERAMENT:
       return {
         ...state,
-        dogs: action.payload,
-      };
-
-    case GET_TEMPERAMENTS:
-      return {
-        ...state,
-        temperaments: action.payload,
+        temperament: action.payload,
       };
 
     default:

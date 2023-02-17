@@ -1,0 +1,46 @@
+.container{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    
+    .buttonMenu, .buttonFilter {
+        height: 80%;
+        background-color: white;
+        border-radius: 50%;
+        border: none;
+        border-radius: 50%;
+    }
+    
+    .filter, .menu{
+        display: none;
+        width: 150px;
+        position: absolute;
+        top: 48px;
+        right:-150px ;
+        transition: 1s;
+    }
+    
+    .buttonFilter:hover ~ .filter{
+        display: block;
+        width: 150px;
+        position: absolute;
+        top: 48px;
+        right:0px ;
+    }
+    
+    .buttonMenu:hover ~ .menu{
+        display: block;
+        width: 150px;
+        position: absolute;
+        top: 48px;
+        right:0px ;
+    }
+}
+
+@media (min-width: 600px) {
+  .container {
+    display: none;
+  }
+}

@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import logo from "../../img/dog.png";
-import styles from "./Landing.module.css";
+import styles from "./Landing.module.scss";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getAllDogs } from "../../redux/actions";
+import { getDogAll } from "../../redux/actions";
 
 
 export default function Landing() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllDogs());
+    dispatch(getDogAll());
   }, [dispatch]);
 
-  const [size, setSize] = useState('large');
+  // const [size, setSize] = useState('large');
 
   return (
     <div className={styles.conteiner}>

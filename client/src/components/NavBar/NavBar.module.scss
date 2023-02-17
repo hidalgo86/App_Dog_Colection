@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 48px;
+  width: 100%;
+  background: linear-gradient(orange, rgb(245, 187, 79));
+
+  img {
+    height: 90%;
+  }
+
+  .menu{
+    display: none;
+  }
+
+  .searchBar{
+    display: flex;
+    justify-content: end;
+    height: 100%;
+    width: 110px;
+  }
+
+
+}
+
+@media (min-width: 600px) {
+  .container {
+    height: 66px;
+
+    img {
+      padding-right: 30px;
+      padding-left: 10px;
+    }
+
+    .menu{
+      display: block;
+      height: 100%;
+      background-color: inherit;
+    }
+
+    .searchBar{
+      margin-left: auto;
+      width: 150px;
+    }
+
+    .buttonMobile{
+      display: none
+    }
+  }
+}

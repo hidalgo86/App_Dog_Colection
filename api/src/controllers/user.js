@@ -1,7 +1,6 @@
 "use strict";
 
-const axios = require("axios");
-const { Dog, Temperament, User } = require("../models/index").models;
+const { User } = require("../models/index").models;
 
 //Controladores de las rutas dogs
 const controller = {
@@ -23,12 +22,13 @@ const controller = {
   userCreate: async (req, res) => {
     try {
       let { name, password, email } = req.body;
-      await User.create({
+      
+      let user = await User.create({
         name,
         password,
         email,
       });
-      res.status(200).json({ mensaje: "Usuario creado con éxito" });
+      res.status(200).json(user);
     } catch (error) {
       console.log(error);
       res.send({ error: error.message });
