@@ -8,7 +8,7 @@ import { Box } from "@mui/system";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const NavBar = () => {
-  const matches = useMediaQuery("(min-width:600px)");
+  const desktop = useMediaQuery("(min-width:600px)");
 
   return (
     <Paper
@@ -24,7 +24,7 @@ const NavBar = () => {
         src={logo}
         sx={{ height: "64px", width: "64px", padding: "0 10px" }}
       />
-      {matches ? (
+      {desktop ? (
         <Box sx={{ height: "100%", display: "flex", flexDirection: "row" }}>
           <MenuBar />
         </Box>

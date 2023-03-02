@@ -60,6 +60,10 @@ export const getDogDb = () => {
   return (dispatch) => {
     axios.get("/api/dogDb").then(
       (response) => {
+        let data = response.data
+
+        if(!data.length) return swal("Disculpa!", "No hay mascotas creada!", "warning");
+
         dispatch({
           type: GET_DOG_DB,
           payload: response.data,
@@ -194,19 +198,19 @@ export const removeDog = (data) => {
 //Metodo para crear un dog:
 export const createDog = (data, token) => {
   return function (dispatch) {
-    if (!token) return swal("Acceso Denegado!", "iniciar sesion!", "warning");
+    if (!token) return swal("Disculpa!", "Debe iniciar Sesion!", "warning");
 
     axios.post(`/api/dogCreate`, data, { headers: { token } }).then(
       (response) => {
         let res = response.data;
 
         if (res === "access denied, token expered or incorrect")
-          return swal("Acceso Denegado!", "iniciar sesion!", "warning");
+          return swal("Disculpa!", "Debe iniciar sesion!", "warning");
 
         if (res.message === "Dog creado con éxito")
           return swal("Exito!", "Se ha agredo!", "success");
 
-        return swal("Error!", "datos incompletos!", "error");
+        return swal("Error!", "Faltan algunos datos!", "error");
       },
       (error) => swal("Error!", "No se pudo guardar!", "error")
     );
@@ -216,16 +220,15 @@ export const createDog = (data, token) => {
 //Metodo para actualizar un dog:
 export const updateDog = (id, data, token) => {
   return function (dispatch) {
-    if (!token) return swal("Acceso Denegado!", "iniciar sesion!", "warning");
+    if (!token) return swal("Disculpa!", "Debe iniciar sesion", "warning");
 
     axios.put(`/api/dogUpdate/${id}`, data, { headers: { token } }).then(
       (response) => {
-        let res = response.data
+        let res = response.data;
         if (res.message === "Dog actualizado con éxito")
-        return swal("Exito!", "Se ha actualizado!", "success");
-        
-        swal("Advertencia!", "faltan datos!", "warning");
+          return swal("Exito!", "Se ha actualizado!", "success");
 
+        swal("Disculpa!", "Faltan algunos datos!", "warning");
       },
       (error) => swal("Error!", "No se pudo actualizar!", "error")
     );
@@ -235,11 +238,11 @@ export const updateDog = (id, data, token) => {
 //Metodo para eliminar un dog:
 export const deleteDog = (id, token) => {
   return function (dispatch) {
-    if (!token) return swal("Acceso Denegado!", "iniciar sesion!", "warning");
+    if (!token) return swal("Disculpa!", "Debe iniciar sesion", "warning");
     axios.delete(`/api/dogDelete/${id}`, { headers: { token } }).then(
       (response) => {
         dispatch(dogsEdit());
-        return swal("Exito!", "Se ha Eliminado!", "success");
+        return swal("Exito!", "Se ha eliminado!", "success");
       },
       (error) => swal("Error!", "No se pudo Eliminar!", "error")
     );
@@ -261,6 +264,8 @@ export const authorizationUser = (data) => {
 //Metodo para crear un usuario:
 export const createrUser = (data) => {
   return function (dispatch) {
+    if(!data.name || !data.password  || !data.email ) return swal("Error!", "Datos incompletos!", "error")
+
     axios.post("/api/userCreate", data).then(
       (response) => {
         return swal("Exito!", "Se ha registrado!", "success");

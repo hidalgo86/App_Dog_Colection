@@ -4,15 +4,16 @@ const Item = ({ item }) => {
   return (
     <Box
       sx={{
-        width: "300px",
-        height: "300px",
+        width: "100%",
+        height: "100%",
         border: "2px solid orange",
         backgroundImage: `url(${item.image})`,
         backgroundSize: "100% 100%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        margin: "5px",
+        // margin: "5px",
+        // borderRadius:"50px"
       }}
     >
       <Box

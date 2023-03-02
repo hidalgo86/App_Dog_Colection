@@ -1,7 +1,7 @@
 import Filter from "../Filter/Filter";
 import Carts from "../Carts/Carts";
 import { useDispatch, useSelector } from "react-redux";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import Page from "../Page/Page";
 import { useEffect } from "react";
 import { removeDog } from "../../redux/actions";
@@ -24,13 +24,15 @@ if(token) localStorage.setItem("token", token)
     }
   },[dispatch])
 
+  const desktop = useMediaQuery('(min-width:600px)');
+
   return (
     <Page
       contenido={
         <Box sx={{ width: "100%", display: "flex" }}>
-          <Box>
+          {desktop ? <Box>
             <Filter />
-          </Box>
+          </Box> : null }
           <Box
             sx={{
               display: "flex",
