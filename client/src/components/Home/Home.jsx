@@ -1,16 +1,47 @@
-import NavBar from "../NavBar/NavBar";
 import Filter from "../Filter/Filter";
-import styles from "./Home.module.scss";
 import Carts from "../Carts/Carts";
+import { useDispatch, useSelector } from "react-redux";
+import { Box } from "@mui/material";
+import Page from "../Page/Page";
+import { useEffect } from "react";
+import { removeDog } from "../../redux/actions";
 
 const Home = () => {
+const dispatch = useDispatch()
+
+const token = useSelector((state) => state.user.token)
+if(token) localStorage.setItem("token", token)
+
+  const dogs = useSelector((state) => state.dogs);
+
+  if (dogs.length) localStorage.setItem("contenido", JSON.stringify(dogs));
+  let contenido = JSON.parse(localStorage.getItem("contenido"));
+
+  useEffect(()=>{
+    return () => {
+      dispatch(removeDog());
+      localStorage.removeItem("contenido");
+    }
+  },[dispatch])
+
   return (
-    <div className={styles.container}>
-      <div className={styles.navBar}><NavBar/></div>
-      <div className={styles.filter}><Filter/></div>
-      <div className={styles.contenido}><Carts/></div>
-      <div className={styles.footer}>footer</div>
-    </div>
+    <Page
+      contenido={
+        <Box sx={{ width: "100%", display: "flex" }}>
+          <Box>
+            <Filter />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flex: 1,
+            }}
+          >
+            <Carts dogs={contenido} />
+          </Box>
+        </Box>
+      }
+    />
   );
 };
 

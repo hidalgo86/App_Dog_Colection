@@ -1,19 +1,53 @@
-import styles from "./NavBar.module.scss";
 import logo from "../../img/dog.png";
-import Menu from "./Menu/Menu";
+import MenuBar from "./MenuBar/MenuBar";
 import SearchBar from "./SearchBar/SearchBar";
 import User from "./User/User";
-import ButtonMobile from "./ButtonMobile/ButtonMobile";
+import { Avatar, Paper } from "@mui/material";
+import { Box } from "@mui/system";
+
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const NavBar = () => {
+  const matches = useMediaQuery("(min-width:600px)");
+
   return (
-    <div className={styles.container}>
-      <img src={logo} alt="logo" />
-      <div className={styles.menu}><Menu/></div>
-      <div className={styles.searchBar}><SearchBar /></div>
-      <div className={styles.user}><User /></div>
-      <div className={styles.buttonMobile}><ButtonMobile/></div>
-    </div>
+    <Paper
+      sx={{
+        height: "64px",
+        display: "flex",
+        alignItems: "center",
+        backgroundColor: "primary.main",
+      }}
+    >
+      <Avatar
+        alt="Remy Sharp"
+        src={logo}
+        sx={{ height: "64px", width: "64px", padding: "0 10px" }}
+      />
+      {matches ? (
+        <Box sx={{ height: "100%", display: "flex", flexDirection: "row" }}>
+          <MenuBar />
+        </Box>
+      ) : null}
+      <Box
+        sx={{
+          height: "100%",
+          marginLeft: "auto",
+        }}
+      >
+        <SearchBar />
+      </Box>
+      <Box
+        sx={{
+          height: "100%",
+          padding: "0 10px",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <User />
+      </Box>
+    </Paper>
   );
 };
 

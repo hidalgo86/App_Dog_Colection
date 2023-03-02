@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../models/index").models;
 
 function generateAccessToken(usuario) {
-  return jwt.sign(usuario, process.env.SECRET, { expiresIn: "5m" });
+  return jwt.sign(usuario, process.env.SECRET, { expiresIn: "15m" });
 }
 
 //Metodo para listar los usuarios:

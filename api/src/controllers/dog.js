@@ -1,7 +1,7 @@
 "use strict";
 
 const axios = require("axios");
-const { Dog, Temperament } = require("../models/index").models;
+const { Dog, Temperament, Dog_Temperament } = require("../models/index").models;
 
 //Controladores de las rutas dogs
 const controller = {
@@ -62,7 +62,7 @@ const controller = {
       });
       await dog.addTemperaments(temperament);
 
-      res.status(200).json({ mensaje: "Dog creado con éxito" });
+      res.status(200).json({ message: "Dog creado con éxito" });
     } catch (error) {
       console.log(error);
       res.send({ error: error.message });
@@ -75,16 +75,27 @@ const controller = {
       let { id } = req.params;
       let { name, height, weight, lifeSpan, temperament } = req.body;
 
-      let dog = await Dog.findOne({ id });
+      await Dog.update(
+        {
+          name,
+          height,
+          weight,
+          lifeSpan,
+        },
+        {
+          where: {
+            id,
+          },
+        }
+      );
 
-      dog.update({
-        name,
-        height,
-        weight,
-        lifeSpan,
-      });
+      await Dog_Temperament.destroy({ where: { DogId:id } });
 
-      res.status(200).json({ mensaje: "Dog actualizado con éxito" });
+      let dog = await Dog.findByPk(id)
+
+      await dog.addTemperaments(temperament);
+
+      res.status(200).json({ message: "Dog actualizado con éxito" });
     } catch (error) {
       console.log(error);
       res.send({ error: error.message });
@@ -95,8 +106,9 @@ const controller = {
   dogDelete: async (req, res) => {
     try {
       let { id } = req.params;
+      await Dog_Temperament.destroy({ where: { DogId:id } });
       await Dog.destroy({ where: { id } });
-      res.status(200).json({ mensaje: "Dog eliminado con éxito" });
+      res.status(200).json({ message: "Dog eliminado con éxito" });
     } catch (error) {
       console.log(error);
       res.send({ error: error.message });
@@ -150,7 +162,17 @@ async function get_dogs_db_postgres(Dog) {
       },
     ],
   });
-  return dataDb;
+
+  let data = dataDb.map((dog) => {
+    let dog_json = dog.toJSON();
+    return {
+      ...dog_json,
+      Temperaments: "",
+      temperament: dog_json.Temperaments?.map((item) => item.name),
+    };
+  });
+
+  return data;
 }
 
 module.exports = controller;

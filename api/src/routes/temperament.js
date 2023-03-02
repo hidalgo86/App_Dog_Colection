@@ -5,6 +5,6 @@ const temperament = require("../controllers/temperament")
 
 const router = Router()
 
-router.get("/temperament", temperament);
+router.get("/temperaments", temperament);
 
 module.exports = router

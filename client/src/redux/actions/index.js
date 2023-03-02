@@ -1,12 +1,17 @@
 import {
+  AUTHORIZATION_USER,
+  EDIT_DOG,
   ERROR_SOLICITUD,
+  FILTER_DOGS,
   GET_DOG_All,
   GET_DOG_API,
   GET_DOG_DB,
   GET_DOG_NAME,
   GET_TEMPERAMENT,
+  REMOVE_DOG,
 } from "../types";
 import axios from "axios";
+import swal from "sweetalert";
 
 //Metodo para solicitar los dog de api externa y db:
 export const getDogAll = () => {
@@ -71,10 +76,31 @@ export const getDogDb = () => {
   };
 };
 
+//Metodo para solicitar los dog de db para editarlos:
+export const dogsEdit = () => {
+  return (dispatch) => {
+    axios.get("/api/dogDb").then(
+      (response) => {
+        dispatch({
+          type: EDIT_DOG,
+          payload: response.data,
+        });
+      },
+      (error) => {
+        console.log(error.message);
+        dispatch({
+          type: ERROR_SOLICITUD,
+          payload: [error.message],
+        });
+      }
+    );
+  };
+};
+
 //Metodo para solicitar los dog por name:
 export const getDogName = (name) => {
   return (dispatch) => {
-    axios.get(`/api/dogs?name=${name}`).then(
+    axios.get(`/api/dogAll?name=${name}`).then(
       (response) => {
         dispatch({
           type: GET_DOG_NAME,
@@ -92,112 +118,45 @@ export const getDogName = (name) => {
   };
 };
 
-// export const getFilterDogs = ({ temperament, breed, order }) => {
-//   return function (dispatch) {
-//     axios.get("/dogs").then((response) => {
-//       let dataFilter = [];
+//Metodo para aplicar filtro a la base de data dogs:
+export const getFilterDogs = ({ temperament, name, weight, order }) => {
+  return (dispatch) => {
+    axios.get("/api/dogAll").then((value) => {
+      let data = value.data;
 
-//       temperament === "All"
-//         ? (dataFilter = response.data)
-//         : (dataFilter = response.data.filter((dog) =>
-//             dog.temperament ? dog.temperament.includes(temperament) : false
-//           ));
+      if (temperament) {
+        data = data.filter(
+          (dog) =>
+            dog.temperament.filter((value) => value === temperament).length
+        );
+      }
 
-//       breed === "Standard"
-//         ? (dataFilter = dataFilter.filter((dog) => typeof dog.id === "number"))
-//         : breed === "Created"
-//         ? (dataFilter = dataFilter.filter((dog) => typeof dog.id !== "number"))
-//         : (dataFilter = dataFilter);
+      if (order === "weight") {
+        if (weight === "ascendente") {
+          data = data.sort((a, b) => (a.weightMin > b.weightMin ? 1 : -1));
+        } else {
+          data = data.sort((a, b) => (a.weightMin > b.weightMin ? -1 : 1));
+        }
+      }
 
-//       order === "asc"
-//         ? (dataFilter = dataFilter.sort((a, b) => {
-//             if (a.name.toLowerCase() > b.name.toLowerCase()) {
-//               return 1;
-//             }
-//             if (a.name.toLowerCase() < b.name.toLowerCase()) {
-//               return -1;
-//             }
-//           }))
-//         : order === "desc"
-//         ? (dataFilter = dataFilter.sort((b, a) => {
-//             if (a.name.toLowerCase() > b.name.toLowerCase()) {
-//               return 1;
-//             }
-//             if (a.name.toLowerCase() < b.name.toLowerCase()) {
-//               return -1;
-//             }
-//           }))
-//         : order === "increment"
-//         ? (dataFilter = dataFilter.sort((a, b) => {
-//             if (a.weightMin > b.weightMin) {
-//               return 1;
-//             }
-//             if (a.weightMin < b.weightMin) {
-//               return -1;
-//             }
-//           }))
-//         : order === "decrement"
-//         ? (dataFilter = dataFilter.sort((a, b) => {
-//             if (a.weightMax < b.weightMax) {
-//               return 1;
-//             }
-//             if (a.weightMax > b.weightMax) {
-//               return -1;
-//             }
-//           }))
-//         : (dataFilter = dataFilter);
+      if (order === "name") {
+        if (name === "ascendente") {
+          data = data.sort((a, b) =>
+            a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
+          );
+        } else {
+          data = data.sort((a, b) =>
+            a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1
+          );
+        }
+      }
 
-//       dispatch({ type: GET_FILTER_DOGS, payload: dataFilter });
-//     });
-//   };
-// };
+      dispatch({ type: FILTER_DOGS, payload: data });
+    });
+  };
+};
 
-// export const getDetailDog = (idRaza) => {
-//   return idRaza
-//     ? function (dispatch) {
-//         axios
-//           .get(`/dogs/${idRaza}`)
-//           .then((response) =>
-//             dispatch({ type: GET_DETAIL_DOG, payload: response.data })
-//           )
-//           .catch((error) =>
-//             dispatch({ type: GET_DETAIL_DOG, payload: [error] })
-//           );
-//       }
-//     : function (dispatch) {
-//         dispatch({ type: GET_DETAIL_DOG, payload: [] });
-//       };
-// };
-
-// export const createDogs = ({
-//   name,
-//   heightMin,
-//   heightMax,
-//   weightMin,
-//   weightMax,
-//   lifeSpanMin,
-//   lifeSpanMax,
-//   temperaments,
-// }) => {
-//   return function (dispatch) {
-//     axios
-//       .post("/dogs", {
-//         name,
-//         heightMin,
-//         heightMax,
-//         weightMin,
-//         weightMax,
-//         lifeSpanMin,
-//         lifeSpanMax,
-//         temperaments,
-//       })
-//       .then((response) =>
-//         dispatch({ type: POST_CREATE_DOGS, payload: getAllDogs })
-//       )
-//       .catch((error) => dispatch({ type: POST_CREATE_DOGS, payload: [error] }));
-//   };
-// };
-
+//Metodo para importar todos los temperamentos de la db:
 export const getTemperament = () => {
   return (dispatch) => {
     axios.get("/api/temperaments").then(
@@ -213,6 +172,100 @@ export const getTemperament = () => {
           payload: [error.message],
         });
       }
+    );
+  };
+};
+
+//Metodo para remover data del estado global react al cerrar componente:
+export const removeDog = (data) => {
+  return function (dispatch) {
+    axios.post("/api/dogCreate", data).then(
+      (response) => {
+        dispatch({
+          type: REMOVE_DOG,
+          payload: [],
+        });
+      },
+      (error) => console.log(error.message)
+    );
+  };
+};
+
+//Metodo para crear un dog:
+export const createDog = (data, token) => {
+  return function (dispatch) {
+    if (!token) return swal("Acceso Denegado!", "iniciar sesion!", "warning");
+
+    axios.post(`/api/dogCreate`, data, { headers: { token } }).then(
+      (response) => {
+        let res = response.data;
+
+        if (res === "access denied, token expered or incorrect")
+          return swal("Acceso Denegado!", "iniciar sesion!", "warning");
+
+        if (res.message === "Dog creado con éxito")
+          return swal("Exito!", "Se ha agredo!", "success");
+
+        return swal("Error!", "datos incompletos!", "error");
+      },
+      (error) => swal("Error!", "No se pudo guardar!", "error")
+    );
+  };
+};
+
+//Metodo para actualizar un dog:
+export const updateDog = (id, data, token) => {
+  return function (dispatch) {
+    if (!token) return swal("Acceso Denegado!", "iniciar sesion!", "warning");
+
+    axios.put(`/api/dogUpdate/${id}`, data, { headers: { token } }).then(
+      (response) => {
+        let res = response.data
+        if (res.message === "Dog actualizado con éxito")
+        return swal("Exito!", "Se ha actualizado!", "success");
+        
+        swal("Advertencia!", "faltan datos!", "warning");
+
+      },
+      (error) => swal("Error!", "No se pudo actualizar!", "error")
+    );
+  };
+};
+
+//Metodo para eliminar un dog:
+export const deleteDog = (id, token) => {
+  return function (dispatch) {
+    if (!token) return swal("Acceso Denegado!", "iniciar sesion!", "warning");
+    axios.delete(`/api/dogDelete/${id}`, { headers: { token } }).then(
+      (response) => {
+        dispatch(dogsEdit());
+        return swal("Exito!", "Se ha Eliminado!", "success");
+      },
+      (error) => swal("Error!", "No se pudo Eliminar!", "error")
+    );
+  };
+};
+
+//Metodo para autorizar un usuario:
+export const authorizationUser = (data) => {
+  return function (dispatch) {
+    axios.post("/api/authorization", data).then(
+      (response) =>
+        dispatch({ type: AUTHORIZATION_USER, payload: response.data }),
+
+      (error) => swal("Error!", "No registrardo!", "error")
+    );
+  };
+};
+
+//Metodo para crear un usuario:
+export const createrUser = (data) => {
+  return function (dispatch) {
+    axios.post("/api/userCreate", data).then(
+      (response) => {
+        return swal("Exito!", "Se ha registrado!", "success");
+      },
+      (error) => swal("Error!", "No se pudo registrar!", "error")
     );
   };
 };

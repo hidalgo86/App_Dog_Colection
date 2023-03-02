@@ -13,10 +13,10 @@ export const GET_DOG_DB = "GET_DOG_DB";
 export const GET_DOG_NAME = "GET_DOG_NAME";
 
 //Crea un nuevo dog en la db:
-export const POST_DOG = "POST_DOG";
+export const CREATE_DOG = "CREATE_DOG";
 
 //Actualiza un dog en la db:
-export const PUT_DOG = "PUT_DOG";
+export const UPDATE_DOG = "UPDATE_DOG";
 
 //Elimina un dog en la db:
 export const DELETE_DOG = "GET_DOG";
@@ -34,13 +34,19 @@ export const PUT_USER = "PUT_USER";
 export const DELETE_USER = "GET_USER";
 
 //Autorizacion de un usuario en la db:
-export const AUTORIZACION_USER = "AUTORIZACION_USER";
+export const AUTHORIZATION_USER = "AUTHORIZATION_USER";
 
 
 //*********solicitudes internas************
 
 //Mostar informacion completa de un dog:
 export const DETAIL_DOG = "DETAIL_DOG";
+
+//Desmontar el estado dogs del componente:
+export const REMOVE_DOG = "REMOVE_DOG";
+
+//Matriz de dogs editables:
+export const EDIT_DOG = "EDIT_DOG";
 
 //filtrar los dogs por temperament
 export const FILTER_DOG_TEMPERAMENT = "FILTER_DOG_TEMPERAMENT";
@@ -50,6 +56,9 @@ export const FILTER_DOG_WEIGHT = "FILTER_DOG_WEIGHT";
 
 //Filtart los dogs por nombre:
 export const FILTER_DOG_NAME = "FILTER_DOG_NAME";
+
+//Filtart los dogs por nombre:
+export const FILTER_DOGS = "FILTER_DOGS";
 
 //Registro de error:
 export const ERROR_SOLICITUD = "ERROR_SOLICITUD"

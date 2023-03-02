@@ -1,33 +1,39 @@
-import React, { useEffect } from "react";
-import logo from "../../img/dog.png";
-import styles from "./Landing.module.scss";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getDogAll } from "../../redux/actions";
+import Category from "./Category/Category";
+import { useEffect } from "react";
+import { Box, Divider } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { getDogAll, removeDog } from "../../redux/actions";
+import Page from "../Page/Page";
+import Carrusel from "./Carrusel/Carrusel";
 
-
-export default function Landing() {
+const Landing = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getDogAll());
+    return () => {
+      dispatch(removeDog());
+    }
   }, [dispatch]);
 
-  // const [size, setSize] = useState('large');
+  const dogs = useSelector((state) => state.dogs);
 
   return (
-    <div className={styles.conteiner}>
-      
-      <b className={styles.titulo}>App Dogs</b>
-     
-      <div className={styles.img}>
-        <img src={logo} alt="" />
-      </div>
-        
-        <Link to="/home">
-          <button className={styles.button}><b>START</b></button>
-        </Link>
+    <Page
+      contenido={
+        <Box sx={{ width: "100%" }}>
+          {dogs.length ? <Carrusel dogs={dogs} /> : null}
 
-    </div>
+          <Divider />
+          <h1 style={{ textAlign: "center" }}>CATEGORIA</h1>
+          <Box sx={{ display: "flex", height: "250px" }}>
+            {" "}
+            <Category />
+          </Box>
+        </Box>
+      }
+    />
   );
-}
+};
+
+export default Landing;

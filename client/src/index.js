@@ -8,18 +8,30 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import { BrowserRouter } from "react-router-dom";
 import dotenv from "dotenv";
+import "normalize.css";
+import { ThemeProvider } from "@emotion/react";
+import { createTheme } from "@mui/material";
+import { orange } from "@mui/material/colors";
 dotenv.config();
-
 
 // la URL_base de las llamadas axios
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
+const theme = createTheme({
+  palette: {
+    primary: orange,
+    secondary: orange,
+  },
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
