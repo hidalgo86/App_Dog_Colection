@@ -9,9 +9,9 @@ const router = Router();
 router.get("/dogAll", dogAll );
 router.get("/dogApi", dogApi );
 router.get("/dogDb", dogDb );
-router.post("/dogCreate", dogCreate );
-router.put("/dogUpdate/:id",  dogUpdate)
-router.delete("/dogDelete/:id", dogDelete ); 
+router.post("/dogCreate", validateToken, dogCreate );
+router.put("/dogUpdate/:id", validateToken, dogUpdate)
+router.delete("/dogDelete/:id", validateToken, dogDelete ); 
 
 module.exports = router;
  
