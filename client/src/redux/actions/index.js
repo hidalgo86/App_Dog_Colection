@@ -60,9 +60,10 @@ export const getDogDb = () => {
   return (dispatch) => {
     axios.get("/api/dogDb").then(
       (response) => {
-        let data = response.data
+        let data = response.data;
 
-        if(!data.length) return swal("Disculpa!", "No hay mascotas creada!", "warning");
+        if (!data.length)
+          return swal("Disculpa!", "No hay mascotas creada!", "warning");
 
         dispatch({
           type: GET_DOG_DB,
@@ -183,15 +184,14 @@ export const getTemperament = () => {
 //Metodo para remover data del estado global react al cerrar componente:
 export const removeDog = (data) => {
   return function (dispatch) {
-    axios.post("/api/dogCreate", data).then(
-      (response) => {
-        dispatch({
-          type: REMOVE_DOG,
-          payload: [],
-        });
-      },
-      (error) => console.log(error.message)
-    );
+    try {
+      dispatch({
+        type: REMOVE_DOG,
+        payload: [],
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 };
 
@@ -264,7 +264,8 @@ export const authorizationUser = (data) => {
 //Metodo para crear un usuario:
 export const createrUser = (data) => {
   return function (dispatch) {
-    if(!data.name || !data.password  || !data.email ) return swal("Error!", "Datos incompletos!", "error")
+    if (!data.name || !data.password || !data.email)
+      return swal("Error!", "Datos incompletos!", "error");
 
     axios.post("/api/userCreate", data).then(
       (response) => {
