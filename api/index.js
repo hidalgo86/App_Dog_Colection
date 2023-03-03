@@ -18,14 +18,15 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require("./src/app.js");
-const { sequelize } = require("./src/models");
+const { connectToDatabase } = require("./src/database/db");
 require("dotenv").config();
 
 // Syncing all the models at once.
-sequelize.authenticate().then(() => {
+
   server.listen(process.env.PORT, () => {
+    connectToDatabase()
     console.log(`%s listening at ${process.env.PORT}`); // eslint-disable-line no-console
   });
-});
+
 
 // https://github.com/timanovsky/subdir-heroku-buildpack
