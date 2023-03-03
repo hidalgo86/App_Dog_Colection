@@ -58,7 +58,7 @@ const Filter = () => {
       name: "ascendente",
       weight: "ascendente",
       order: "name",
-    });
+    }); 
   };
 
   return (
