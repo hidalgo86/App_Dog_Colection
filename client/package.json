@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.9",
     "@testing-library/jest-dom": "^5.11.10",
@@ -31,7 +32,6 @@
     "sweetalert": "^2.1.2",
     "web-vitals": "^2.1.4"
   },
- 
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
