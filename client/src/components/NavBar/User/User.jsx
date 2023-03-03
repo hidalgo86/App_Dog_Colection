@@ -39,7 +39,7 @@ const User = () => {
         <Box sx={{ position: "relative" }}>
           <Fab
             onClick={handleClick}
-            size="medium"
+            size="small"
             aria-label="user"
             sx={{
               backgroundColor: "white",
@@ -47,7 +47,7 @@ const User = () => {
               "&:hover": { backgroundColor: "primary.main", color: "white" },
             }}
           >
-            <AccountCircleIcon sx={{ fontSize: "50px" }} />
+            <AccountCircleIcon sx={{ fontSize: "30px" }} />
           </Fab>
 
           {open ? (

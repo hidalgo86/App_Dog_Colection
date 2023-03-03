@@ -63,12 +63,12 @@ const Filter = () => {
 
   return (
     <Paper
-      elevation={9}
+      elevation={0}
       style={{
         width: "220px",
         height: "100%",
-        padding: "50px 0",
-        background: "linear-gradient(orange 50%, white)",
+        background: "none",
+        border:"none"
       }}
     >
       {/****************** Temperamento ************************/}
@@ -89,12 +89,12 @@ const Filter = () => {
             color: "white",
           },
         }}
-      >
+        >
         <InputLabel
           aria-label="control de temperamento"
           id="temperament"
           sx={{}}
-        >
+          >
           Temperamento
         </InputLabel>
         <Select

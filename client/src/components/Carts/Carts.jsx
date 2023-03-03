@@ -59,6 +59,7 @@ const Carts = ({ dogs }) => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "space-evenly",
+        margin:"10px"
       }}
     >
       {/* <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
@@ -68,7 +69,7 @@ const Carts = ({ dogs }) => {
       </Box> */}
 
       <Grid
-        sx={{padding:" 0 20px"}}
+        // sx={{padding:" 0 20px"}}
         container
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
@@ -81,7 +82,7 @@ const Carts = ({ dogs }) => {
           </Grid>
         ))}
       </Grid>
-      <Box>
+      <Box sx={{marginTop:"15px"}}>
         <Paginated pagTotal={pagTotal} handlerChange={handlerChange} />
       </Box>
     </Box>

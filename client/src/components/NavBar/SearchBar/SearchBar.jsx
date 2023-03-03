@@ -31,6 +31,7 @@ const SearchBar = () => {
       }}
     >
       <InputBase
+        size="small"
         onChange={inputChange}
         sx={{
           flex: 0.6,
@@ -51,7 +52,7 @@ const SearchBar = () => {
       />
 
       <Fab
-        size="medium"
+        size="small"
         aria-label="searchButton"
         onClick={handlerChange}
         sx={{
@@ -60,7 +61,7 @@ const SearchBar = () => {
           "&:hover": { backgroundColor: "white", color: "primary.main" },
         }}
       >
-        <SearchIcon sx={{}} />
+        <SearchIcon/>
       </Fab>
     </Box>
   );

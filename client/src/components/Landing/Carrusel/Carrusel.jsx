@@ -61,7 +61,7 @@ function Dog({ dog }) {
       <img
         src={dog.image}
         alt={dog.name}
-        style={{ width: "650px", height: "650px" }}
+        style={{ width: "500px", height: "500px" }}
       />
       <Button sx={{ position: "absolute" }}></Button>
     </Paper>

@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <Paper
       sx={{
-        height: "100px",
+        height: "70px",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -18,6 +18,7 @@ const Footer = () => {
       }}
     >
       <Fab
+      size="small"
         color="primary"
         sx={{
           color: "white",
@@ -25,9 +26,10 @@ const Footer = () => {
         }}
         href="https://github.com/hidalgo86"
       >
-        <GitHubIcon sx={{ fontSize: "40px" }} />
+        <GitHubIcon />
       </Fab>
       <Fab
+      size="small"
         color="primary"
         sx={{
           color: "white",
@@ -35,28 +37,30 @@ const Footer = () => {
         }}
         href="https://www.linkedin.com/in/hidalgoeduardo"
       >
-        <LinkedInIcon sx={{ fontSize: "40px" }} />
+        <LinkedInIcon/>
       </Fab>
       <Link to="/home/admin/contact" style={{ textDecoration: "none" }}>
         <Fab
+        size="small"
           color="primary"
           sx={{
             color: "white",
             "&:hover": { backgroundColor: "white", color: "primary.main" },
           }}
         >
-          <EmailIcon sx={{ fontSize: "40px" }} />
+          <EmailIcon/>
         </Fab>
       </Link>
       <Link to="/home/admin/contact" style={{ textDecoration: "none" }}>
         <Fab
+        size="small"
           color="primary"
           sx={{
             color: "white",
             "&:hover": { backgroundColor: "white", color: "primary.main" },
           }}
         >
-          <WhatsAppIcon sx={{ fontSize: "40px" }} />
+          <WhatsAppIcon />
         </Fab>
       </Link>
     </Paper>

@@ -52,11 +52,11 @@ const UserCreate = () => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-evenly",
-              height: "500px",
+              height: "400px",
               flex: 1,
               gap: "10px",
               background: "linear-gradient(#ff9800 70%,white)",
-              maxWidth: "500px",
+              maxWidth: "400px",
               borderRadius: "20px",
             }}
           >

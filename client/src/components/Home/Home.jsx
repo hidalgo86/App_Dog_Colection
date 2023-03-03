@@ -7,32 +7,39 @@ import { useEffect } from "react";
 import { removeDog } from "../../redux/actions";
 
 const Home = () => {
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-const token = useSelector((state) => state.user.token)
-if(token) localStorage.setItem("token", token)
+  const token = useSelector((state) => state.user.token);
+  if (token) localStorage.setItem("token", token);
 
   const dogs = useSelector((state) => state.dogs);
 
   if (dogs.length) localStorage.setItem("contenido", JSON.stringify(dogs));
   let contenido = JSON.parse(localStorage.getItem("contenido"));
 
-  useEffect(()=>{
+  useEffect(() => {
     return () => {
       dispatch(removeDog());
       localStorage.removeItem("contenido");
-    }
-  },[dispatch])
+    };
+  }, [dispatch]);
 
-  const desktop = useMediaQuery('(min-width:600px)');
+  const desktop = useMediaQuery("(min-width:600px)");
 
   return (
     <Page
       contenido={
         <Box sx={{ width: "100%", display: "flex" }}>
-          {desktop ? <Box>
-            <Filter />
-          </Box> : null }
+          {desktop ? (
+            <Box
+              sx={{
+                paddingTop: "50px",
+                background: "linear-gradient(orange 50%, white)",
+              }}
+            >
+              <Filter />
+            </Box>
+          ) : null}
           <Box
             sx={{
               display: "flex",
