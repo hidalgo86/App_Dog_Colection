@@ -10,8 +10,8 @@ router.get("/dogAll", dogAll );
 router.get("/dogApi", dogApi );
 router.get("/dogDb", dogDb );
 router.post("/dogCreate", dogCreate );
-router.put("/dogUpdate/:id", validateToken, dogUpdate)
-router.delete("/dogDelete/:id", validateToken, dogDelete ); 
+router.put("/dogUpdate/:id",  dogUpdate)
+router.delete("/dogDelete/:id", dogDelete ); 
 
 module.exports = router;
  

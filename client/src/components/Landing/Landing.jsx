@@ -2,7 +2,7 @@ import Category from "./Category/Category";
 import { useEffect } from "react";
 import { Box, Divider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getDogAll, removeDog } from "../../redux/actions";
+import { getDogAll, getTemperament, removeDog } from "../../redux/actions";
 import Page from "../Page/Page";
 import Carrusel from "./Carrusel/Carrusel";
 
@@ -11,6 +11,7 @@ const Landing = () => {
 
   useEffect(() => {
     dispatch(getDogAll());
+    dispatch(getTemperament())
     return () => {
       dispatch(removeDog());
     }
