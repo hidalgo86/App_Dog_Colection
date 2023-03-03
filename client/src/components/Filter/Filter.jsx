@@ -57,7 +57,7 @@ const Filter = () => {
       temperament: "",
       name: "ascendente",
       weight: "ascendente",
-      order: "",
+      order: "name",
     });
   };
 
