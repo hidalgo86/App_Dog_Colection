@@ -18,13 +18,13 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require("./src/app.js");
-// const { connectToDatabase } = require("./src/database/db");
-const { sequelize } = require("./src/models");
+const { connectToDatabase } = require("./src/database/db");
+// const { sequelize } = require("./src/models");
 require("dotenv").config();
 
 // Syncing all the models at once.
 
   server.listen(process.env.PORT, () => {
-    sequelize.sync()
+    connectToDatabase();
     console.log(`%s listening at ${process.env.PORT}`)
   });
