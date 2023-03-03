@@ -9,7 +9,7 @@ const router = Router();
 router.get("/dogAll", dogAll );
 router.get("/dogApi", dogApi );
 router.get("/dogDb", dogDb );
-router.post("/dogCreate", validateToken, dogCreate );
+router.post("/dogCreate", dogCreate );
 router.put("/dogUpdate/:id", validateToken, dogUpdate)
 router.delete("/dogDelete/:id", validateToken, dogDelete ); 
 
