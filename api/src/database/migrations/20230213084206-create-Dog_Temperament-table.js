@@ -1,9 +1,9 @@
 "use strict";
 const { DataTypes } = require("sequelize");
 
-/** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  up: async ({context: queryInterface}) => {
     await queryInterface.createTable("Dog_Temperament", {
       id: {
         type: DataTypes.INTEGER,
@@ -27,7 +27,7 @@ module.exports = {
     });
   },
 
-  async down(queryInterface, Sequelize) {
+  down: async({context: queryInterface}) => {
     await queryInterface.dropTable("Dogs_Temperaments");
   },
 };

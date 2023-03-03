@@ -18,7 +18,7 @@ const migrations = await migrator.up()
 
 const connectToDatabase = async () => {
   try {
-    await sequelize.sync();
+    await sequelize.sync()
     // highlight-start
     await runMigrations();
     // highlight-end
