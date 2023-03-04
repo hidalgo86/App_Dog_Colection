@@ -15,10 +15,10 @@ const Footer = () => {
   return (
     <Paper
       sx={{
-        height: "150px",
+        height: "70px",
         display: "flex",
         justifyContent: "center",
-        alignItems: "flex-start",
+        alignItems: "center",
         gap: "40px",
         backgroundColor: "primary.main",
       }}

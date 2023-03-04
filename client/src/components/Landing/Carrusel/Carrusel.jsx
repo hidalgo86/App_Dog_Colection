@@ -52,6 +52,7 @@ const Carrusel = ({ dogs }) => {
 function Dog({ dog }) {
   return (
     <Paper
+    elevation={0}
       sx={{
         display: "flex",
         justifyContent: "center",

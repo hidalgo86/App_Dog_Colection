@@ -1,23 +1,19 @@
 import { useState } from "react";
 import Paginated from "../Paginated/Paginated";
-import { Box, Grid, Paper } from "@mui/material";
+import { Box, Grid, Paper, useMediaQuery } from "@mui/material";
 import dog from "../../img/Dog_durmiendo.jpg";
 import styled from "@emotion/styled";
 import Cart from "./Cart/Cart";
 
 const Item = styled(Paper)(({ theme }) => ({
-  // backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  // ...theme.typography.body2,
-  // padding: theme.spacing(2),
-  // textAlign: "center",
-  // color: theme.palette.text.secondary,
-  height:"300px",
-// backgroundColor:"red",
-display:"flex"
+  height: "300px",
+  display: "flex",
 }));
 
 const Carts = ({ dogs }) => {
   const [pag, setPag] = useState(1);
+
+  const matches = useMediaQuery('(min-width:600px)');
 
   let itemPag,
     itemTotal,
@@ -28,7 +24,7 @@ const Carts = ({ dogs }) => {
   //Metodo para fraccionar la lista de dogs:
   const fraccion = (dogs) => {
     itemTotal = dogs.length;
-    itemPag = 8;
+    itemPag = matches ? 8 : 4;
     pagTotal = Math.ceil(itemTotal / itemPag);
 
     for (
@@ -59,20 +55,13 @@ const Carts = ({ dogs }) => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "space-evenly",
-        margin:"10px"
+        margin: "10px",
       }}
     >
-      {/* <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-        {contenido.map((item) => (
-          <Item item={item} key={item.id} />
-        ))}
-      </Box> */}
-
       <Grid
-        // sx={{padding:" 0 20px"}}
         container
         spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 8, md: 12 }}
+        columns={{ xs: 2, sm: 8, md: 12 }}
       >
         {contenido.map((item) => (
           <Grid item xs={2} sm={4} md={3} key={item.id}>
@@ -82,7 +71,7 @@ const Carts = ({ dogs }) => {
           </Grid>
         ))}
       </Grid>
-      <Box sx={{marginTop:"15px"}}>
+      <Box sx={{ marginTop: "15px" }}>
         <Paginated pagTotal={pagTotal} handlerChange={handlerChange} />
       </Box>
     </Box>

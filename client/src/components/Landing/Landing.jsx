@@ -1,6 +1,6 @@
 import Category from "./Category/Category";
 import { useEffect } from "react";
-import { Box, Divider } from "@mui/material";
+import { Box, Divider, Paper, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getDogAll, getTemperament, removeDog } from "../../redux/actions";
 import Page from "../Page/Page";
@@ -22,15 +22,27 @@ const Landing = () => {
   return (
     <Page
       contenido={
-        <Box sx={{ width: "100%" }}>
-          {dogs.length ? <Carrusel dogs={dogs} /> : null}
+        <Box sx={{ height:"100%", flex:1 }}>
 
-          <Divider />
-          <h1 style={{ textAlign: "center" }}>CATEGORIA</h1>
-          <Box sx={{ display: "flex", height: "250px" }}>
-            {" "}
+          {dogs.length ? 
+          <Paper elevation={0}>
+            <Carrusel dogs={dogs} /> 
+          </Paper>
+          : null}
+
+          <Divider sx={{margin:"10px 0"}}/>
+
+          <Typography
+              sx={{ textAlign: "center", margin:"10px 0"}}
+              variant="h4"
+            >
+              CATEGORIA
+            </Typography>
+         
+          <Paper elevation={0} sx={{ display: "flex", margin:"10px 0" }}>
             <Category />
-          </Box>
+          </Paper>
+
         </Box>
       }
     />
