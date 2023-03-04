@@ -1,5 +1,4 @@
 import {
-  AUTHORIZATION_USER,
   EDIT_DOG,
   ERROR_SOLICITUD,
   FILTER_DOGS,
@@ -196,16 +195,17 @@ export const removeDog = (data) => {
 };
 
 //Metodo para crear un dog:
-export const createDog = (data, token) => {
+export const createDog = (data, token, login) => {
   return function (dispatch) {
-    if (!token) return swal("Disculpa!", "Debe iniciar Sesion!", "warning");
+    // if (!token) return swal("Disculpa!", "Debe iniciar Sesion!", "warning");
+    if (!token) return login()
 
     axios.post(`/api/dogCreate`, data, { headers: { token } }).then(
       (response) => {
         let res = response.data;
 
         if (res === "access denied, token expered or incorrect")
-          return swal("Disculpa!", "Debe iniciar sesion!", "warning");
+          return login();
 
         if (res.message === "Dog creado con éxito")
           return swal("Exito!", "Se ha agredo!", "success");
@@ -218,9 +218,9 @@ export const createDog = (data, token) => {
 };
 
 //Metodo para actualizar un dog:
-export const updateDog = (id, data, token) => {
+export const updateDog = (id, data, token, login) => {
   return function (dispatch) {
-    if (!token) return swal("Disculpa!", "Debe iniciar sesion", "warning");
+    if (!token) return login();
 
     axios.put(`/api/dogUpdate/${id}`, data, { headers: { token } }).then(
       (response) => {
@@ -236,9 +236,9 @@ export const updateDog = (id, data, token) => {
 };
 
 //Metodo para eliminar un dog:
-export const deleteDog = (id, token) => {
+export const deleteDog = (id, token, login) => {
   return function (dispatch) {
-    if (!token) return swal("Disculpa!", "Debe iniciar sesion", "warning");
+    if (!token) return login();
     axios.delete(`/api/dogDelete/${id}`, { headers: { token } }).then(
       (response) => {
         dispatch(dogsEdit());
@@ -250,25 +250,32 @@ export const deleteDog = (id, token) => {
 };
 
 //Metodo para autorizar un usuario:
-export const authorizationUser = (data) => {
+export const authorizationUser = (data, home) => {
   return function (dispatch) {
     axios.post("/api/authorization", data).then(
-      (response) =>
-        dispatch({ type: AUTHORIZATION_USER, payload: response.data }),
-
+      (response) => {
+        let { message, token } = response.data;
+        if (message === "Usuario autenticado") {
+          localStorage.setItem("token", token);
+          home();
+        } else {
+          swal("Disculpa!", `${message}!`, "warning");
+        }
+      },
       (error) => swal("Error!", "No registrardo!", "error")
     );
   };
 };
 
 //Metodo para crear un usuario:
-export const createrUser = (data) => {
+export const createrUser = (data, home) => {
   return function (dispatch) {
     if (!data.name || !data.password || !data.email)
       return swal("Error!", "Datos incompletos!", "error");
 
     axios.post("/api/userCreate", data).then(
       (response) => {
+        home();
         return swal("Exito!", "Se ha registrado!", "success");
       },
       (error) => swal("Error!", "No se pudo registrar!", "error")

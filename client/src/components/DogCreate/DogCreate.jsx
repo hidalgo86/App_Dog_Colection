@@ -16,6 +16,8 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useDispatch } from "react-redux";
 import { createDog } from "../../redux/actions";
 import fondo from "../../img/crear.jpg";
+import { useHistory } from "react-router-dom";
+import swal from "sweetalert";
 
 const DogCreate = () => {
   const dispatch = useDispatch();
@@ -30,6 +32,22 @@ const DogCreate = () => {
     lifeSpanMax: "",
     temperamentIndex: [],
   });
+
+  let history = useHistory()
+
+  let login = () => {
+    swal({
+      title: "Disculpa!",
+      text: "Debe iniciar sesion!",
+      icon: "warning",
+      buttons: ["iniciar sesion", "cancelar"],
+    })
+    .then((result) => {
+       if (!result) {
+      return history.push("/home/user/login")
+      }
+    });  
+  }
 
   const token = localStorage.getItem("token")
 
@@ -89,7 +107,7 @@ const DogCreate = () => {
       temperament: form.temperamentIndex.map((value) => value.split(":")[0]),
     };
    
-    dispatch(createDog(data, token));
+    dispatch(createDog(data, token, login));
 
     setForm({
       temperament: "",
@@ -119,19 +137,20 @@ const DogCreate = () => {
           <Paper
             elevation={9}
             sx={{
+              margin:"10px 0",
+              padding:"10px 0",
               display: "flex",
               flexDirection: "column",
-              justifyContent: "space-evenly",
               flex: 1,
-              height: "600px",
-              maxWidth: "600px",
+              maxWidth: "400px",
               background: "linear-gradient(#ff9800 80%, white)",
               borderRadius: "20px",
+              gap:"10px"
             }}
           >
             <Typography
               sx={{ textAlign: "center", color: "white" }}
-              variant="h2"
+              variant="h4"
             >
               Nueva Mascota
             </Typography>
@@ -396,6 +415,7 @@ const DogCreate = () => {
               >
                 {form.temperamentIndex?.map((temperament, index) => (
                   <Chip
+                  size="small"
                     sx={{
                       backgroundColor: "white",
                       color: "primary.main",

@@ -17,8 +17,9 @@ import Page from "../Page/Page";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import noData from "../../img/noData.jpg";
+import swal from "sweetalert";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -51,8 +52,24 @@ const DogUpdate = () => {
   const token = localStorage.getItem("token")
   
   const submitEliminar = (id) => {
-    dispatch(deleteDog(id, token));
+    dispatch(deleteDog(id, token, login));
   };
+
+  let history = useHistory()
+
+  let login = () => {
+    swal({
+      title: "Disculpa!",
+      text: "Debe iniciar sesion!",
+      icon: "warning",
+      buttons: ["iniciar sesion", "cancelar"],
+    })
+    .then((result) => {
+       if (!result) {
+      return history.push("/home/user/login")
+      }
+    });  
+  }
 
   return ( dogs ?
     <Page

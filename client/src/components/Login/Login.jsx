@@ -8,13 +8,22 @@ import {
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { authorizationUser, getDogAll } from "../../redux/actions";
 import Page from "../Page/Page";
 import login from "../../img/login.jpg";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
+
+
 const Login = () => {
   const dispatch = useDispatch();
+
+  let history = useHistory()
+
+  let home = () => {
+    history.push("/home")
+  }
+
 
   const [form, setForm] = useState({
     username: "",
@@ -29,7 +38,7 @@ const Login = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(authorizationUser(form));
+    dispatch(authorizationUser(form, home));
     dispatch(getDogAll());
   };
 
@@ -116,7 +125,7 @@ const Login = () => {
                 flexWrap: "wrap",
               }}
             >
-              <Link to="/home" style={{ textDecoration: "none" }}>
+              {/* <Link to="/home" style={{ textDecoration: "none" }}> */}
                 <Button
                   aria-label="Boton Crear nueva mascota"
                   sx={{
@@ -132,7 +141,7 @@ const Login = () => {
                 >
                   OK
                 </Button>
-              </Link>
+              {/* </Link> */}
               <Link to="/home/user/create" style={{ textDecoration: "none" }}>
                 <Button
                   aria-label="Boton Crear nueva mascota"

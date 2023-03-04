@@ -9,9 +9,6 @@ import { removeDog } from "../../redux/actions";
 const Home = () => {
   const dispatch = useDispatch();
 
-  const token = useSelector((state) => state.user.token);
-  if (token) localStorage.setItem("token", token);
-
   const dogs = useSelector((state) => state.dogs);
 
   if (dogs.length) localStorage.setItem("contenido", JSON.stringify(dogs));

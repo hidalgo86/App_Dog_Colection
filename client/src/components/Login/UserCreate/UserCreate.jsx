@@ -8,14 +8,22 @@ import {
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { createrUser } from "../../../redux/actions";
+import { useHistory } from "react-router-dom";
+import { createrUser, getDogAll } from "../../../redux/actions";
 import Page from "../../Page/Page";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import fondo from "../../../img/register.jpg";
 
 const UserCreate = () => {
   const dispatch = useDispatch();
+
+  let history = useHistory()
+
+  let home = () => {
+    new Promise ((resolv)=> {
+      resolv(dispatch(getDogAll()))
+    }).then(() => history.push("/home"))
+  }
 
   const [form, setForm] = useState({
     name: "",
@@ -31,7 +39,7 @@ const UserCreate = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(createrUser(form));
+    dispatch(createrUser(form, home));
   };
 
   return (
@@ -140,7 +148,6 @@ const UserCreate = () => {
                 justifyContent: "center",
               }}
             >
-              <Link to="/home" style={{ textDecoration: "none" }}>
                 <Button
                   aria-label="Boton Crear nueva mascota"
                   sx={{
@@ -156,7 +163,6 @@ const UserCreate = () => {
                 >
                   OK
                 </Button>
-              </Link>
             </Box>
           </Paper>
         </Box>

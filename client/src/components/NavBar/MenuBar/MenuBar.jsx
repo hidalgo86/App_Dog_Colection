@@ -9,12 +9,10 @@ import {
   ListItemText,
   Paper,
   styled,
-  Tooltip,
-  tooltipClasses,
 } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { getDogAll, getDogApi, getDogDb } from "../../../redux/actions";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
@@ -28,7 +26,7 @@ const ButtonMenu = styled(Button)(({ theme }) => ({
   color: "white",
   ":hover": {
     color: "white",
-    border: "2px solid white",
+    border: "1px solid white",
     backgroundColor: theme.palette.action.hover,
   },
 }));
@@ -45,7 +43,6 @@ const MenuBar = () => {
     set_open_categoria(false);
   };
 
-
   const handleClick_menu = () => {
     set_open_menu((prev) => !prev);
   };
@@ -56,17 +53,25 @@ const MenuBar = () => {
 
   const dispatch = useDispatch();
 
+  let history = useHistory();
+
+  let ruta = (path) => {
+    history.push(path);
+  };
+
   return (
     <Box sx={{ display: "flex", height: "100%" }}>
-      <Link to="/" style={{ textDecoration: "none" }}>
-        <ButtonMenu variant="outlined" disableElevation>
+        <ButtonMenu onClick={()=>ruta("/")} variant="outlined" disableElevation>
           INICIO
         </ButtonMenu>
-      </Link>
 
       <ClickAwayListener onClickAway={handleClickAway_categoria}>
         <Box sx={{ position: "relative" }}>
-          <ButtonMenu variant="outlined" onClick={handleClick_categoria} disableElevation>
+          <ButtonMenu
+            variant="outlined"
+            onClick={handleClick_categoria}
+            disableElevation
+          >
             CATEGORIA
           </ButtonMenu>
 
@@ -85,24 +90,34 @@ const MenuBar = () => {
                 bgcolor: "primary.main",
               }}
             >
-              <Link to="/home" style={{ textDecoration: "none" }}>
-                <List component="nav" aria-label="Categoria">
-                  <ListItemButton onClick={() => dispatch(getDogAll())}>
-                    <ListItemText primary="Todos" sx={{ color: "white" }} />
-                  </ListItemButton>
-                  <Divider />
-                  <ListItemButton onClick={() => dispatch(getDogApi())}>
-                    <ListItemText
-                      primary="Instalados"
-                      sx={{ color: "white" }}
-                    />
-                  </ListItemButton>
-                  <Divider />
-                  <ListItemButton onClick={() => dispatch(getDogDb())}>
-                    <ListItemText primary="Creados" sx={{ color: "white" }} />
-                  </ListItemButton>
-                </List>
-              </Link>
+              <List component="nav" aria-label="Categoria">
+                <ListItemButton
+                  onClick={() => {
+                    dispatch(getDogAll());
+                    ruta("/home");
+                  }}
+                >
+                  <ListItemText primary="Todos" sx={{ color: "white" }} />
+                </ListItemButton>
+                <Divider />
+                <ListItemButton
+                  onClick={() => {
+                    dispatch(getDogApi());
+                    ruta("/home");
+                  }}
+                >
+                  <ListItemText primary="Instalados" sx={{ color: "white" }} />
+                </ListItemButton>
+                <Divider />
+                <ListItemButton
+                  onClick={() => {
+                    dispatch(getDogDb());
+                    ruta("/home");
+                  }}
+                >
+                  <ListItemText primary="Creados" sx={{ color: "white" }} />
+                </ListItemButton>
+              </List>
             </Paper>
           ) : null}
         </Box>
@@ -114,7 +129,11 @@ const MenuBar = () => {
         onClickAway={handleClickAway_menu}
       >
         <Box sx={{ position: "relative" }}>
-          <ButtonMenu variant="outlined" onClick={handleClick_menu} disableElevation>
+          <ButtonMenu
+            variant="outlined"
+            onClick={handleClick_menu}
+            disableElevation
+          >
             MENU
           </ButtonMenu>
 
@@ -134,40 +153,28 @@ const MenuBar = () => {
               }}
             >
               <List component="nav" aria-label="Menu de opciones">
-                <Link
-                  to="/home/dog/create"
-                  style={{ textDecoration: "none", color: "white" }}
-                >
-                  <ListItemButton>
+                  <ListItemButton onClick={()=>ruta("/home/dog/create")}>
                     <ListItemIcon>
                       <AddCircleIcon />
                     </ListItemIcon>
                     <ListItemText primary="Crear" />
                   </ListItemButton>
-                </Link>
                 <Divider />
-                <Link
-                  to="/home/dog/edit"
-                  style={{ textDecoration: "none", color: "white" }}
-                >
-                  <ListItemButton>
+                  <ListItemButton onClick={()=>ruta("/home/dog/edit")}>
                     <ListItemIcon>
                       <BorderColorIcon />
                     </ListItemIcon>
                     <ListItemText primary="Editar" />
                   </ListItemButton>
-                </Link>
               </List>
             </Paper>
           ) : null}
         </Box>
       </ClickAwayListener>
 
-      <Link to="/home/admin/contact" style={{ textDecoration: "none" }}>
-        <ButtonMenu variant="outlined" disableElevation>
+        <ButtonMenu onClick={()=>ruta("/home/admin/contact")} variant="outlined" disableElevation>
           CONTACTO
         </ButtonMenu>
-      </Link>
     </Box>
   );
 };

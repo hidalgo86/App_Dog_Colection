@@ -9,7 +9,7 @@ const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../database/config/config.json")[env];
 const db = {};
 
-//Configuracion de conexion a postgres:
+// Configuracion de conexion a postgres:
 let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(config);
@@ -21,6 +21,12 @@ if (config.use_env_variable) {
     config
   );
 }
+
+
+// let sequelize = new Sequelize(`postgres://postgres:postgres@localhost:5432/dogs`, {
+//         logging: false,
+//         native: false,
+//       });
 
 //Lecturas de los archivos en la carpeta models:
 fs.readdirSync(__dirname) //Leer los archivos

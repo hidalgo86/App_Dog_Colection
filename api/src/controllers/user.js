@@ -22,13 +22,13 @@ const controller = {
   userCreate: async (req, res) => {
     try {
       let { name, password, email } = req.body;
-      
+
       let user = await User.create({
         name,
         password,
         email,
       });
-      res.status(200).json(user);
+      res.json(user);
     } catch (error) {
       console.log(error);
       res.send({ error: error.message });
@@ -40,10 +40,14 @@ const controller = {
     try {
       let { id } = req.params;
       let { name, password, email } = req.body;
-      if(!id, !name, !password, !email) {return res.send({menssage: "Faltan datos"})}
+      if ((!id, !name, !password, !email)) {
+        return res.send({ menssage: "Faltan datos" });
+      }
       let user = await User.findByPk(id);
-      
-      if(!user.dataValues){return res.send({menssage: "Usuario no encontrado"})}
+
+      if (!user.dataValues) {
+        return res.send({ menssage: "Usuario no encontrado" });
+      }
       user.update({
         name,
         password,

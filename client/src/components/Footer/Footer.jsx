@@ -1,24 +1,30 @@
 import { Fab, Paper } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import EmailIcon from "@mui/icons-material/Email";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 
 const Footer = () => {
+  let history = useHistory();
+
+  const ruta = (path) => {
+    history.push(path);
+  };
+
   return (
     <Paper
       sx={{
-        height: "70px",
+        height: "150px",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: "flex-start",
         gap: "40px",
         backgroundColor: "primary.main",
       }}
     >
       <Fab
-      size="small"
+        size="small"
         color="primary"
         sx={{
           color: "white",
@@ -29,7 +35,7 @@ const Footer = () => {
         <GitHubIcon />
       </Fab>
       <Fab
-      size="small"
+        size="small"
         color="primary"
         sx={{
           color: "white",
@@ -37,32 +43,30 @@ const Footer = () => {
         }}
         href="https://www.linkedin.com/in/hidalgoeduardo"
       >
-        <LinkedInIcon/>
+        <LinkedInIcon />
       </Fab>
-      <Link to="/home/admin/contact" style={{ textDecoration: "none" }}>
-        <Fab
+      <Fab
+        onClick={() => ruta("/home/admin/contact")}
         size="small"
-          color="primary"
-          sx={{
-            color: "white",
-            "&:hover": { backgroundColor: "white", color: "primary.main" },
-          }}
-        >
-          <EmailIcon/>
-        </Fab>
-      </Link>
-      <Link to="/home/admin/contact" style={{ textDecoration: "none" }}>
-        <Fab
+        color="primary"
+        sx={{
+          color: "white",
+          "&:hover": { backgroundColor: "white", color: "primary.main" },
+        }}
+      >
+        <EmailIcon />
+      </Fab>
+      <Fab
+        onClick={() => ruta("/home/admin/contact")}
         size="small"
-          color="primary"
-          sx={{
-            color: "white",
-            "&:hover": { backgroundColor: "white", color: "primary.main" },
-          }}
-        >
-          <WhatsAppIcon />
-        </Fab>
-      </Link>
+        color="primary"
+        sx={{
+          color: "white",
+          "&:hover": { backgroundColor: "white", color: "primary.main" },
+        }}
+      >
+        <WhatsAppIcon />
+      </Fab>
     </Paper>
   );
 };
