@@ -69,7 +69,7 @@ const Contact = () => {
                 component="h6"
                 sx={{ color: "black", fontWeight: "bolder" }}
               >
-                higalgojose86@gmail.com
+                hidalgojose86@gmail.com
               </Typography>
             </Paper>
 
