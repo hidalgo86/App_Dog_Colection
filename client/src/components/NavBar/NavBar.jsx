@@ -71,7 +71,7 @@ const NavBar = () => {
           <MenuMobil />
         </Box>
       ) : null}
-    </Paper>
+    </Paper> 
   );
 };
 
