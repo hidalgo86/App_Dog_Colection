@@ -6,6 +6,7 @@ import { Avatar, Paper } from "@mui/material";
 import { Box } from "@mui/system";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const desktop = useMediaQuery("(min-width:600px)");
@@ -19,11 +20,13 @@ const NavBar = () => {
         backgroundColor: "primary.main",
       }}
     >
+      <Link to={"/"}>
       <Avatar
         alt="Remy Sharp"
         src={logo}
         sx={{ height: "64px", width: "64px", padding: "0 10px" }}
-      />
+        />
+        </Link>
       {desktop ? (
         <Box sx={{ height: "100%", display: "flex", flexDirection: "row" }}>
           <MenuBar />
