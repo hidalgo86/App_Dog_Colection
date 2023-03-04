@@ -6,10 +6,18 @@ import { Avatar, Paper } from "@mui/material";
 import { Box } from "@mui/system";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import MenuMobil from "./MenuMobil/MenuMobil";
 
 const NavBar = () => {
   const desktop = useMediaQuery("(min-width:600px)");
+
+  let history = useHistory();
+
+  let ruta = () => {
+    history.push("/")
+  }
+
 
   return (
     <Paper
@@ -20,13 +28,13 @@ const NavBar = () => {
         backgroundColor: "primary.main",
       }}
     >
-      <Link to={"/"}>
-      <Avatar
-        alt="Remy Sharp"
-        src={logo}
-        sx={{ height: "64px", width: "64px", padding: "0 10px" }}
+        <Avatar
+        onClick={ruta}
+          alt="Remy Sharp"
+          src={logo}
+          sx={{ height: "64px", width: "64px", padding: "0 10px" }}
         />
-        </Link>
+
       {desktop ? (
         <Box sx={{ height: "100%", display: "flex", flexDirection: "row" }}>
           <MenuBar />
@@ -35,7 +43,8 @@ const NavBar = () => {
       <Box
         sx={{
           height: "100%",
-          marginLeft: "auto",
+          // marginLeft: "auto",
+          flex:1
         }}
       >
         <SearchBar />
@@ -43,13 +52,25 @@ const NavBar = () => {
       <Box
         sx={{
           height: "100%",
-          padding: "0 10px",
+          padding: desktop ? "0 10px": "0 0 0 10px",
           display: "flex",
           alignItems: "center",
         }}
       >
         <User />
       </Box>
+
+      {!desktop ? (
+        <Box
+          sx={{
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <MenuMobil />
+        </Box>
+      ) : null}
     </Paper>
   );
 };

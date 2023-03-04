@@ -7,12 +7,15 @@ import {
   ListItemButton,
   ListItemText,
   Paper,
+  useMediaQuery,
 } from "@mui/material";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const User = () => {
+  const desktop = useMediaQuery("(min-width:600px)");
+
   const cerrar = () => {
     localStorage.removeItem("token");
     setOpen(false);
@@ -58,7 +61,7 @@ const User = () => {
                 padding: 0,
                 position: "absolute",
                 top: 52,
-                right: -10,
+                right: desktop ? -10 : -46,
                 // left: 0,
                 zIndex: 999,
                 border: "1px solid white",

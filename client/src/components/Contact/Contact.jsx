@@ -89,7 +89,7 @@ const Contact = () => {
               </Typography>
               <Typography
                 component="h6"
-                sx={{ color: "black", fontWeight: "bolder" }}
+                sx={{ color: "black", fontWeight: "bolder", margin:"0 5px" }}
               >
                 https://www.linkedin.com/in/hidalgoeduardo
               </Typography>
