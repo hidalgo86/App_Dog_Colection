@@ -127,7 +127,7 @@ const Filter = () => {
           aria-label="Platform"
         >
           <ToggleButton sx={{ flex: 1 }} value="name">
-            Nombre
+            Raza
           </ToggleButton>
           <ToggleButton sx={{ flex: 1 }} value="weight">
             Peso
@@ -194,7 +194,7 @@ const Filter = () => {
                 color: "white",
               }}
             >
-              Nombre:
+              Raza:
             </FormLabel>
             <RadioGroup
               aria-labelledby="name-order"

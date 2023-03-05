@@ -5,6 +5,7 @@ import {
   Fab,
   List,
   ListItemButton,
+  ListItemIcon,
   ListItemText,
   Paper,
   useMediaQuery,
@@ -12,6 +13,9 @@ import {
 import React from "react";
 import { useHistory } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 const User = () => {
   const desktop = useMediaQuery("(min-width:600px)");
@@ -75,6 +79,10 @@ const User = () => {
                     ruta("/home/user/login");
                   }}
                 >
+                   <ListItemIcon>
+                      < LoginIcon />
+                    </ListItemIcon>
+                 
                   <ListItemText primary="Inicio" sx={{ color: "white" }} />
                 </ListItemButton>
                 <Divider />
@@ -83,10 +91,16 @@ const User = () => {
                     ruta("/home/user/create");
                   }}
                 >
+                  <ListItemIcon>
+                      < GroupAddIcon />
+                    </ListItemIcon>
                   <ListItemText primary="Registrar" sx={{ color: "white" }} />
                 </ListItemButton>
                 <Divider />
                 <ListItemButton onClick={cerrar}>
+                <ListItemIcon>
+                      < LogoutIcon />
+                    </ListItemIcon>
                   <ListItemText primary="Cerrar" sx={{ color: "white" }} />
                 </ListItemButton>
               </List>

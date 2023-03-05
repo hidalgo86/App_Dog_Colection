@@ -150,6 +150,7 @@ const MenuBar = () => {
                 border: "1px solid white",
                 p: 1,
                 bgcolor: "primary.main",
+                color:"white"
               }}
             >
               <List component="nav" aria-label="Menu de opciones">

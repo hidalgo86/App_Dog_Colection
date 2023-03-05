@@ -1,5 +1,5 @@
 //acciones para el cambio de estado
-import { AUTHORIZATION_USER, EDIT_DOG, FILTER_DOGS, GET_DOG_All, GET_DOG_API, GET_DOG_DB, GET_DOG_NAME, GET_TEMPERAMENT, REMOVE_DOG } from "../types";
+import { AUTHORIZATION_USER, DETAIL_DOG, EDIT_DOG, FILTER_DOGS, GET_DOG_All, GET_DOG_API, GET_DOG_DB, GET_DOG_NAME, GET_TEMPERAMENT, REMOVE_DOG } from "../types";
 
 // Estado Global inicial de redux
 const initialState = {
@@ -43,6 +43,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         dogs: action.payload,
+      };
+    case DETAIL_DOG:
+      return {
+        ...state,
+        detail: action.payload,
       };
 
     case REMOVE_DOG:

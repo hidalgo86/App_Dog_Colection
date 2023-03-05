@@ -1,4 +1,5 @@
 import {
+  DETAIL_DOG,
   EDIT_DOG,
   ERROR_SOLICITUD,
   FILTER_DOGS,
@@ -159,6 +160,24 @@ export const getFilterDogs = ({ temperament, name, weight, order }) => {
     });
   };
 };
+
+export const getDogDetail = (data) => {
+  return (dispatch) => {
+    try {
+      dispatch({
+        type: DETAIL_DOG,
+        payload: data,
+      })
+      
+    } catch (error) {
+      console.log(error.message);
+      dispatch({
+        type: ERROR_SOLICITUD,
+        payload: error.message,
+      })
+    }
+  }
+}
 
 //Metodo para importar todos los temperamentos de la db:
 export const getTemperament = () => {

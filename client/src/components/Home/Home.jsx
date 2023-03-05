@@ -14,12 +14,12 @@ const Home = () => {
   if (dogs.length) localStorage.setItem("contenido", JSON.stringify(dogs));
   let contenido = JSON.parse(localStorage.getItem("contenido"));
 
-  useEffect(() => {
-    return () => {
-      dispatch(removeDog());
-      localStorage.removeItem("contenido");
-    };
-  }, [dispatch]);
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(removeDog());
+  //     localStorage.removeItem("contenido");
+  //   };
+  // }, [dispatch]);
 
   const desktop = useMediaQuery("(min-width:600px)");
 

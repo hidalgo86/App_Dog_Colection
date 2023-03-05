@@ -4,6 +4,7 @@ import {
   IconButton,
   List,
   ListItemButton,
+  ListItemIcon,
   ListItemText,
   Paper,
 } from "@mui/material";
@@ -12,21 +13,28 @@ import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { Box } from "@mui/system";
 import { getDogDb } from "../../../redux/actions";
+import TuneIcon from "@mui/icons-material/Tune";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import CategoryIcon from "@mui/icons-material/Category";
+import Page from "../../Page/Page";
+import Filter from "../../Filter/Filter";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Category from "../../Landing/Category/Category"
+
+const filter = <div>hola</div>
 
 const MenuMobil = () => {
-  const cerrar = () => {
-    localStorage.removeItem("token");
-    setOpen(false);
-  };
+  const [modal, setModal] = useState({});
 
-  const [open, setOpen] = useState(false);
-
-  const handleClick = () => {
-    setOpen((prev) => !prev);
+  const handleClick = (path) => {
+    setModal((modal) => {
+      return { ...modal, [path]: !modal[path] };
+    });
   };
 
   const handleClickAway = () => {
-    setOpen(false);
+    setModal(false);
   };
 
   let history = useHistory();
@@ -47,11 +55,11 @@ const MenuMobil = () => {
     >
       <ClickAwayListener onClickAway={handleClickAway}>
         <Box sx={{ position: "relative" }}>
-          <IconButton onClick={handleClick}>
-            <MenuIcon sx={{ color:"white", fontSize: "30px" }} />
+          <IconButton onClick={() => handleClick("menu")}>
+            <MoreVertIcon sx={{ color: "white", fontSize: "30px" }} />
           </IconButton>
 
-          {open ? (
+          {modal.menu ? (
             <Paper
               sx={{
                 margin: 0,
@@ -67,15 +75,26 @@ const MenuMobil = () => {
               }}
             >
               <List component="nav" aria-label="Menu-user">
+              
                 <ListItemButton
-                  onClick={() => {
-                    ruta("/home");
-                    getDogDb()
-                  }}
+                onClick={() => handleClick("filter")}
+                    // ruta("/home");
+                    // getDogDb();
+                  // }}
                 >
+                  <ListItemIcon>
+                    <TuneIcon />
+                  </ListItemIcon>
                   <ListItemText primary="Filtar" sx={{ color: "white" }} />
                 </ListItemButton>
 
+              {modal.filter ? <Filter/> : null}
+
+
+
+
+
+             
                 <Divider />
 
                 <ListItemButton
@@ -83,44 +102,55 @@ const MenuMobil = () => {
                     ruta("/home/dog/create");
                   }}
                 >
+                  <ListItemIcon>
+                    <AddCircleIcon />
+                  </ListItemIcon>
                   <ListItemText primary="Crear" sx={{ color: "white" }} />
                 </ListItemButton>
 
-                  <Divider />
+                <Divider />
 
                 <ListItemButton
                   onClick={() => {
                     ruta("/home/dog/edit");
                   }}
                 >
+                  <ListItemIcon>
+                    <BorderColorIcon />
+                  </ListItemIcon>
                   <ListItemText primary="Editar" sx={{ color: "white" }} />
                 </ListItemButton>
 
                 <Divider />
-
-                <ListItemButton onClick={cerrar}>
+                <ListItemButton
+                  onClick={() => handleClick("category")}
+                >
+                  <ListItemIcon>
+                    <CategoryIcon />
+                  </ListItemIcon>
                   <ListItemText primary="Categoria" sx={{ color: "white" }} />
                 </ListItemButton>
+                {modal.category ? <Category/> : null}
+
               </List>
             </Paper>
           ) : null}
         </Box>
       </ClickAwayListener>
-    </Paper>
 
-    // <div className={styles.container}>
-    //   <button className={styles.buttonFilter}>
-    //     <FcFilledFilter style={{ color: "white", fontSize: "25px" }} />
-    //   </button>
-    //   <button className={styles.buttonMenu}>
-    //     <GiHamburgerMenu style={{ color: "orange", fontSize: "25px" }} />
-    //   </button>
-    //   {/* <div className={styles.filter}><Filter/></div> */}
-    //   <div className={styles.menu}>
-    //     <Menu />
-    //   </div>
-    // </div>
+
+
+
+
+
+
+
+
+    </Paper>
   );
 };
+
+
+
 
 export default MenuMobil;

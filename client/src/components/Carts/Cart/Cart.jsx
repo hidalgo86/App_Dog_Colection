@@ -1,8 +1,23 @@
 import { Box } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { getDogDetail } from "../../../redux/actions";
+import DogUpdate from "../../DogUpdate/DogUpdate";
 
 const Item = ({ item }) => {
+
+  const dispatch = useDispatch()
+
+  const history = useHistory()
+
+  const detalle = () => {
+    dispatch(getDogDetail(item));
+    history.push(`/home/dog/detail/${item.id}`)
+  }
+
   return (
     <Box
+      onClick={detalle }
       sx={{
         width: "100%",
         height: "100%",
@@ -12,8 +27,7 @@ const Item = ({ item }) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        // margin: "5px",
-        // borderRadius:"50px"
+        curso:"hand"
       }}
     >
       <Box
@@ -31,12 +45,13 @@ const Item = ({ item }) => {
       </Box>
       <Box
         sx={{
+          // alignSelf:"center",
+          textAlign:"center",
           backgroundColor: "rgba(255, 166, 0, 0.534)",
           color: "white",
         }}
       >
-        <Box>Temperamento: {item.temperament.join(", ")}</Box>
-        <Box>Peso: {item.weight} kg</Box>
+        <Box><b>Peso:</b> {item.weight} kg</Box>
       </Box>
     </Box>
   );
