@@ -155,10 +155,11 @@ const MenuMobil = () => {
       >
         <Box
           sx={{
+            outline:"2px solid white", 
             backgroundColor: "#ff9800",
             position: "absolute",
-            top: "64px",
-            right: "0",
+            top: "66px",
+            right: "2px",
             padding:"20px 0"
           }}
         >
@@ -171,11 +172,12 @@ const MenuMobil = () => {
       >
         <Box
           sx={{
+            outline:"2px solid white",
             backgroundColor: "white",
             position: "absolute",
-            top: "64px",
+            top: "66px",
             right: "2px",
-            padding:"2px"
+            
           }}
         >
           <Category modal={handleClose} />
