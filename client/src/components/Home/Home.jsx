@@ -2,9 +2,15 @@ import { Box, useMediaQuery } from "@mui/material";
 import Page from "../Page/Page";
 import Carts from "../Carts/Carts";
 import Filter from "../Filter/Filter";
+import { useDispatch, useSelector } from "react-redux";
+import { getDogAll } from "../../redux/actions";
 
 const Home = () => {
   const desktop = useMediaQuery("(min-width:600px)");
+  const dispatch = useDispatch();
+  useSelector((state) => {
+    if (!state.dogs.length) dispatch(getDogAll());
+  });
 
   return (
     <Page

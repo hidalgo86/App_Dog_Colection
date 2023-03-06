@@ -19,13 +19,13 @@ const images = [
   {
     click: getDogApi,
     url: adulto,
-    title: "Instalados",
+    title: "Instalado",
     width: "30%",
   },
   {
     click: getDogDb,
     url: cachorro,
-    title: "Creados",
+    title: "Creado",
     width: "30%",
   },
 ];

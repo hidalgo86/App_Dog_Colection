@@ -17,8 +17,11 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "@mui/material";
+import { useHistory } from "react-router-dom";
 
 const Filter = ({modal}) => {
+
+  let history = useHistory()
 
   const dispatch = useDispatch();
 
@@ -66,7 +69,8 @@ const Filter = ({modal}) => {
       weight: "ascendente",
       order: "name",
     });
-    if(modal) modal()
+    if(modal) modal();
+    history.push("/home")
   };
 
   return temperaments ? (
