@@ -90,7 +90,7 @@ const MenuMobil = () => {
                 padding: 0,
                 position: "absolute",
                 top: 55,
-                right: -10,
+                right: 0,
                 zIndex: 999,
                 border: "1px solid white",
                 p: 1,
@@ -152,8 +152,6 @@ const MenuMobil = () => {
       <Modal
         open={open.filter}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
       >
         <Box
           sx={{
@@ -170,17 +168,13 @@ const MenuMobil = () => {
       <Modal
         open={open.category}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
       >
         <Box
           sx={{
-            borderRadius:"1px solid white",
-            border:"20px",
             backgroundColor: "white",
             position: "absolute",
             top: "64px",
-            right: "5px",
+            right: "2px",
             padding:"2px"
           }}
         >
