@@ -1,7 +1,6 @@
 import { Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Page from "../Page/Page";
-import Cart from "../Carts/Cart/Cart";
 import { useSelector } from "react-redux";
 
 const DogDetail = () => {

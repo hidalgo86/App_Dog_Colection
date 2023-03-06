@@ -18,16 +18,15 @@ import {
   ToggleButtonGroup,
 } from "@mui/material";
 
-const Filter = () => {
+const Filter = ({modal}) => {
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getTemperament());
-  }, [dispatch]);
+  }, []);
 
-  const temperaments = useSelector((state) => state.temperament);
-
-  localStorage.setItem("temperamento", JSON.stringify(temperaments));
+  let temperaments = useSelector((state) => state.temperament);
 
   const [form, setForm] = useState({
     temperament: "",
@@ -51,6 +50,14 @@ const Filter = () => {
     }
   };
 
+  const itemTemperament = temperaments.map((temperament) => {
+    return (
+      <MenuItem key={temperament.id} value={temperament.name}>
+        {temperament.name}
+      </MenuItem>
+    );
+  });
+
   const filtrar = () => {
     dispatch(getFilterDogs(form));
     setForm({
@@ -58,17 +65,18 @@ const Filter = () => {
       name: "ascendente",
       weight: "ascendente",
       order: "name",
-    }); 
+    });
+    if(modal) modal()
   };
 
-  return (
+  return temperaments ? (
     <Paper
       elevation={0}
       style={{
         width: "220px",
         height: "100%",
         background: "none",
-        border:"none"
+        border: "none",
       }}
     >
       {/****************** Temperamento ************************/}
@@ -81,7 +89,6 @@ const Filter = () => {
           "& .MuiFormLabel-root.Mui-focused": { color: "white" },
           "& .MuiInputLabel-root.Mui-focused": { color: "rgba(0, 0, 0, 0.52)" },
           "& .MuiOutlinedInput-input": { color: "white" },
-
           "& .MuiToggleButtonGroup-grouped:not(:first-of-type).Mui-selected": {
             color: "white",
           },
@@ -89,12 +96,12 @@ const Filter = () => {
             color: "white",
           },
         }}
-        >
+      >
         <InputLabel
           aria-label="control de temperamento"
           id="temperament"
           sx={{}}
-          >
+        >
           Temperamento
         </InputLabel>
         <Select
@@ -108,11 +115,7 @@ const Filter = () => {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          {temperaments.map((temperament) => (
-            <MenuItem key={temperament.id} value={temperament.name}>
-              {temperament.name}
-            </MenuItem>
-          ))}
+          {itemTemperament}
         </Select>
 
         {/****************** Orden "Nombre-Peso"  ************************/}
@@ -255,7 +258,7 @@ const Filter = () => {
         </Button>
       </FormControl>
     </Paper>
-  );
+  ) : null;
 };
 
 export default Filter;

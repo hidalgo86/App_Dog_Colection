@@ -1,26 +1,9 @@
-import Filter from "../Filter/Filter";
-import Carts from "../Carts/Carts";
-import { useDispatch, useSelector } from "react-redux";
 import { Box, useMediaQuery } from "@mui/material";
 import Page from "../Page/Page";
-import { useEffect } from "react";
-import { removeDog } from "../../redux/actions";
+import Carts from "../Carts/Carts";
+import Filter from "../Filter/Filter";
 
 const Home = () => {
-  const dispatch = useDispatch();
-
-  const dogs = useSelector((state) => state.dogs);
-
-  if (dogs.length) localStorage.setItem("contenido", JSON.stringify(dogs));
-  let contenido = JSON.parse(localStorage.getItem("contenido"));
-
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(removeDog());
-  //     localStorage.removeItem("contenido");
-  //   };
-  // }, [dispatch]);
-
   const desktop = useMediaQuery("(min-width:600px)");
 
   return (
@@ -43,7 +26,7 @@ const Home = () => {
               flex: 1,
             }}
           >
-            <Carts dogs={contenido} />
+            <Carts />
           </Box>
         </Box>
       }

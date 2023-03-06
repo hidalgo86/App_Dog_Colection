@@ -3,12 +3,14 @@ import { useState } from "react";
 import { getDogName } from "../../../redux/actions/index";
 import { Fab, Paper, useMediaQuery } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { Box } from "@mui/system";
 import InputBase from "@mui/material/InputBase";
+import { useHistory } from "react-router-dom";
 
 const SearchBar = () => {
   const desktop = useMediaQuery("(min-width:600px)");
   const [name, setName] = useState("");
+
+  let history = useHistory()
 
   const dispatch = useDispatch();
 
@@ -19,6 +21,7 @@ const SearchBar = () => {
 
   const handlerChange = () => {
     dispatch(getDogName(name));
+    history.push("/home")
   };
 
   return (
@@ -37,7 +40,6 @@ const SearchBar = () => {
         size="small"
         onChange={inputChange}
         sx={{
-          // flex: 0.6,
           width:"90px",
           backgroundColor: "white",
           borderRadius: "20px",

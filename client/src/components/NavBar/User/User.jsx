@@ -13,16 +13,18 @@ import {
 import React from "react";
 import { useHistory } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
 
 const User = () => {
+  let history = useHistory();
   const desktop = useMediaQuery("(min-width:600px)");
 
   const cerrar = () => {
     localStorage.removeItem("token");
     setOpen(false);
+    history.push("/");
   };
 
   const [open, setOpen] = React.useState(false);
@@ -34,8 +36,6 @@ const User = () => {
   const handleClickAway = () => {
     setOpen(false);
   };
-
-  let history = useHistory();
 
   const ruta = (path) => {
     history.push(path);
@@ -66,7 +66,6 @@ const User = () => {
                 position: "absolute",
                 top: 52,
                 right: desktop ? -10 : -46,
-                // left: 0,
                 zIndex: 999,
                 border: "1px solid white",
                 p: 1,
@@ -79,10 +78,10 @@ const User = () => {
                     ruta("/home/user/login");
                   }}
                 >
-                   <ListItemIcon>
-                      < LoginIcon />
-                    </ListItemIcon>
-                 
+                  <ListItemIcon>
+                    <LoginIcon />
+                  </ListItemIcon>
+
                   <ListItemText primary="Inicio" sx={{ color: "white" }} />
                 </ListItemButton>
                 <Divider />
@@ -92,15 +91,15 @@ const User = () => {
                   }}
                 >
                   <ListItemIcon>
-                      < GroupAddIcon />
-                    </ListItemIcon>
+                    <GroupAddIcon />
+                  </ListItemIcon>
                   <ListItemText primary="Registrar" sx={{ color: "white" }} />
                 </ListItemButton>
                 <Divider />
                 <ListItemButton onClick={cerrar}>
-                <ListItemIcon>
-                      < LogoutIcon />
-                    </ListItemIcon>
+                  <ListItemIcon>
+                    <LogoutIcon />
+                  </ListItemIcon>
                   <ListItemText primary="Cerrar" sx={{ color: "white" }} />
                 </ListItemButton>
               </List>

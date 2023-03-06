@@ -4,16 +4,25 @@ import { Box, Grid, Paper, useMediaQuery } from "@mui/material";
 import dog from "../../img/Dog_durmiendo.jpg";
 import styled from "@emotion/styled";
 import Cart from "./Cart/Cart";
+import { useSelector } from "react-redux";
 
 const Item = styled(Paper)(({ theme }) => ({
   height: "300px",
   display: "flex",
 }));
 
-const Carts = ({ dogs }) => {
-  const [pag, setPag] = useState(1);
+const Carts = () => {
+  const matches = useMediaQuery("(min-width:600px)");
 
-  const matches = useMediaQuery('(min-width:600px)');
+  let dogs = 
+    useSelector((state) => {
+      if (state.dogs.length) {
+        localStorage.setItem("dogs", JSON.stringify(state.dogs));
+      }
+      return state.dogs.length ? state.dogs : JSON.parse(localStorage.getItem("dogs"));
+    });
+
+  const [pag, setPag] = useState(1);
 
   let itemPag,
     itemTotal,
@@ -21,23 +30,23 @@ const Carts = ({ dogs }) => {
     selector = {},
     contenido = [];
 
-  //Metodo para fraccionar la lista de dogs:
-  const fraccion = (dogs) => {
-    itemTotal = dogs.length;
-    itemPag = matches ? 8 : 4;
-    pagTotal = Math.ceil(itemTotal / itemPag);
-
-    for (
-      let pag = 1, i = 0, j = itemPag;
-      i < itemTotal;
-      i += itemPag, j += itemPag, pag++
-    ) {
-      selector[pag] = { inicio: i, fin: j };
-    }
-  };
-
-  //Fraccionar la lista de dogs:
   if (dogs) {
+    //Metodo para fraccionar la lista de dogs:
+    const fraccion = (dogs) => {
+      itemTotal = dogs.length;
+      itemPag = matches ? 8 : 4;
+      pagTotal = Math.ceil(itemTotal / itemPag);
+
+      for (
+        let pag = 1, i = 0, j = itemPag;
+        i < itemTotal;
+        i += itemPag, j += itemPag, pag++
+      ) {
+        selector[pag] = { inicio: i, fin: j };
+      }
+    };
+
+    //Fraccionar la lista de dogs:
     fraccion(dogs);
     contenido = dogs.slice(selector[pag]["inicio"], selector[pag]["fin"]);
   }

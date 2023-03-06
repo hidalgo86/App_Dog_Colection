@@ -214,17 +214,17 @@ export const removeDog = (data) => {
 };
 
 //Metodo para crear un dog:
-export const createDog = (data, token, login) => {
+export const createDog = (data, token, history) => {
   return function (dispatch) {
     // if (!token) return swal("Disculpa!", "Debe iniciar Sesion!", "warning");
-    if (!token) return login()
+    if (!token) return login(history)
 
     axios.post(`/api/dogCreate`, data, { headers: { token } }).then(
       (response) => {
         let res = response.data;
 
         if (res === "access denied, token expered or incorrect")
-          return login();
+          return login(history);
 
         if (res.message === "Dog creado con éxito")
           return swal("Exito!", "Se ha agredo!", "success");
@@ -237,9 +237,9 @@ export const createDog = (data, token, login) => {
 };
 
 //Metodo para actualizar un dog:
-export const updateDog = (id, data, token, login) => {
+export const updateDog = (id, data, token, history) => {
   return function (dispatch) {
-    if (!token) return login();
+    if (!token) return login(history);
 
     axios.put(`/api/dogUpdate/${id}`, data, { headers: { token } }).then(
       (response) => {
@@ -255,9 +255,9 @@ export const updateDog = (id, data, token, login) => {
 };
 
 //Metodo para eliminar un dog:
-export const deleteDog = (id, token, login) => {
+export const deleteDog = (id, token, history) => {
   return function (dispatch) {
-    if (!token) return login();
+    if (!token) return login(history);
     axios.delete(`/api/dogDelete/${id}`, { headers: { token } }).then(
       (response) => {
         dispatch(dogsEdit());
@@ -300,4 +300,17 @@ export const createrUser = (data, home) => {
       (error) => swal("Error!", "No se pudo registrar!", "error")
     );
   };
+};
+
+let login = (history) => {
+  swal({
+    title: "Disculpa!",
+    text: "Debe iniciar sesion!",
+    icon: "warning",
+    buttons: ["iniciar sesion", "cancelar"],
+  }).then((result) => {
+    if (!result) {
+      return history.push("/home/user/login");
+    }
+  });
 };

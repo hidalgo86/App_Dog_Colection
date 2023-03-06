@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getDogDetail } from "../../../redux/actions";
-import DogUpdate from "../../DogUpdate/DogUpdate";
 
 const Item = ({ item }) => {
 
@@ -45,7 +44,6 @@ const Item = ({ item }) => {
       </Box>
       <Box
         sx={{
-          // alignSelf:"center",
           textAlign:"center",
           backgroundColor: "rgba(255, 166, 0, 0.534)",
           color: "white",

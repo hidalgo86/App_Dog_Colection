@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { getDogAll, getDogApi, getDogDb } from "../../../redux/actions";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
@@ -82,8 +82,6 @@ const MenuBar = () => {
                 padding: 0,
                 position: "absolute",
                 top: 63,
-                // right: 0,
-                // left: 0,
                 zIndex: 999,
                 border: "1px solid white",
                 p: 1,
@@ -144,8 +142,6 @@ const MenuBar = () => {
                 padding: 0,
                 position: "absolute",
                 top: 63,
-                // right: 0,
-                // left: 0,
                 zIndex: 999,
                 border: "1px solid white",
                 p: 1,

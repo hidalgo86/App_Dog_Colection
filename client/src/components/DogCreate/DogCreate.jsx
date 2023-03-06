@@ -10,14 +10,13 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Page from "../Page/Page";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { useDispatch } from "react-redux";
-import { createDog } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { createDog, getTemperament } from "../../redux/actions";
 import fondo from "../../img/crear.jpg";
 import { useHistory } from "react-router-dom";
-import swal from "sweetalert";
 
 const DogCreate = () => {
   const dispatch = useDispatch();
@@ -33,25 +32,15 @@ const DogCreate = () => {
     temperamentIndex: [],
   });
 
-  let history = useHistory()
+  let history = useHistory();
 
-  let login = () => {
-    swal({
-      title: "Disculpa!",
-      text: "Debe iniciar sesion!",
-      icon: "warning",
-      buttons: ["iniciar sesion", "cancelar"],
-    })
-    .then((result) => {
-       if (!result) {
-      return history.push("/home/user/login")
-      }
-    });  
-  }
+  const token = localStorage.getItem("token");
 
-  const token = localStorage.getItem("token")
+  useEffect(() => {
+    dispatch(getTemperament());
+  }, []);
 
-  const temperaments = JSON.parse(localStorage.getItem("temperamento"));
+  let temperaments = useSelector((state) => state.temperament);
 
   let ArrayNumber = Array.from(Array(101), (_, index) => index);
   let ArrayWeightMax = ArrayNumber.slice(form.weightMin, -1);
@@ -106,8 +95,8 @@ const DogCreate = () => {
       lifeSpan: `${form.lifeSpanMin} - ${form.lifeSpanMax} years`,
       temperament: form.temperamentIndex.map((value) => value.split(":")[0]),
     };
-   
-    dispatch(createDog(data, token, login));
+
+    dispatch(createDog(data, token, history));
 
     setForm({
       temperament: "",
@@ -137,15 +126,15 @@ const DogCreate = () => {
           <Paper
             elevation={9}
             sx={{
-              margin:"10px 0",
-              padding:"10px 0",
+              margin: "10px 0",
+              padding: "10px 0",
               display: "flex",
               flexDirection: "column",
               flex: 1,
               maxWidth: "400px",
               background: "linear-gradient(#ff9800 80%, white)",
               borderRadius: "20px",
-              gap:"10px"
+              gap: "10px",
             }}
           >
             <Typography
@@ -415,7 +404,7 @@ const DogCreate = () => {
               >
                 {form.temperamentIndex?.map((temperament, index) => (
                   <Chip
-                  size="small"
+                    size="small"
                     sx={{
                       backgroundColor: "white",
                       color: "primary.main",

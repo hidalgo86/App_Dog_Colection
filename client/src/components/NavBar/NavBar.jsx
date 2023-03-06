@@ -43,7 +43,6 @@ const NavBar = () => {
       <Box
         sx={{
           height: "100%",
-          // marginLeft: "auto",
           flex:1
         }}
       >

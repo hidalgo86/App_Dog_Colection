@@ -10,30 +10,16 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Page from "../Page/Page";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { useDispatch } from "react-redux";
-import { updateDog } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { getTemperament, updateDog } from "../../redux/actions";
 import fondo from "../../img/crear.jpg";
 import { useHistory, useParams } from "react-router-dom";
-import swal from "sweetalert";
 
 const DogUpdate = () => {
   let history = useHistory();
-
-  let login = () => {
-    swal({
-      title: "Disculpa!",
-      text: "Debe iniciar sesion!",
-      icon: "warning",
-      buttons: ["iniciar sesion", "cancelar"],
-    }).then((result) => {
-      if (!result) {
-        return history.push("/home/user/login");
-      }
-    });
-  };
 
   const token = localStorage.getItem("token");
 
@@ -52,7 +38,12 @@ const DogUpdate = () => {
     temperamentIndex: [],
   });
 
-  const temperaments = JSON.parse(localStorage.getItem("temperamento"));
+  useEffect(() => {
+    dispatch(getTemperament());
+  }, []);
+
+  let temperaments = useSelector((state) => state.temperament);
+
   let ArrayNumber = Array.from(Array(101), (_, index) => index);
   let ArrayWeightMax = ArrayNumber.slice(form.weightMin, -1);
   let ArrayHeightMax = ArrayNumber.slice(form.heightMin, -1);
@@ -107,7 +98,7 @@ const DogUpdate = () => {
       temperament: form.temperamentIndex.map((value) => value.split(":")[0]),
     };
 
-    dispatch(updateDog(id, data, token, login));
+    dispatch(updateDog(id, data, token, history));
 
     setForm({
       temperament: "",

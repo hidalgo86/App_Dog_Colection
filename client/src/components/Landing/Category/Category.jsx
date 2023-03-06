@@ -94,7 +94,7 @@ const ImageMarked = styled("span")(({ theme }) => ({
   transition: theme.transitions.create("opacity"),
 }));
 
-export default function ButtonBases() {
+export default function ButtonBases({modal}) {
   const dispatch = useDispatch();
   return (
     <Box
@@ -109,7 +109,7 @@ export default function ButtonBases() {
     >
       {images.map((image) => (
         <ImageButton
-          onClick={() => dispatch(image.click())}
+          onClick={() => {dispatch(image.click()); modal()}}
           focusRipple
           key={image.title}
           style={{
