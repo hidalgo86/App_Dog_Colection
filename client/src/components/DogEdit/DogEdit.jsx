@@ -8,6 +8,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  useMediaQuery,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect } from "react";
@@ -41,7 +42,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const DogUpdate = () => {
   const dispatch = useDispatch();
-
+  const desktop = useMediaQuery("(min-width:700px)");
   useEffect(() => {
     dispatch(dogsEdit());
   }, [dispatch]);
@@ -72,11 +73,14 @@ const DogUpdate = () => {
             <Paper
               elevation={9}
               sx={{
+                margin:"0 10px",
+                display:"flex",
+                width: desktop ? "700px" : "400px",
                 backgroundColor: "primari.main",
               }}
             >
               <TableContainer component={Paper}>
-                <Table sx={{ minWidth: "600px" }} aria-label="simple table">
+                <Table sx={{ minWidth: "680px" }} aria-label="simple table">
                   <TableHead>
                     <TableRow>
                       <StyledTableCell>RAZA</StyledTableCell>

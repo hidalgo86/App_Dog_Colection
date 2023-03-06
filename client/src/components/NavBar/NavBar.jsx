@@ -6,11 +6,11 @@ import { Avatar, Paper } from "@mui/material";
 import { Box } from "@mui/system";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import MenuMobil from "./MenuMobil/MenuMobil";
 
 const NavBar = () => {
-  const desktop = useMediaQuery("(min-width:600px)");
+  const desktop = useMediaQuery("(min-width:700px)");
 
   let history = useHistory();
 
