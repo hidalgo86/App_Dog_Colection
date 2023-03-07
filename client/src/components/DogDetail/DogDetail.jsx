@@ -18,6 +18,7 @@ const DogDetail = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            background: "radial-gradient(rgba(255, 255, 0, 0.8) 20%,white)",
           }}
         >
           <Paper

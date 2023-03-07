@@ -17,6 +17,7 @@ const Item = ({ item }) => {
   return (
     <Box
       onClick={detalle }
+
       sx={{
         width: "100%",
         height: "100%",
@@ -26,7 +27,7 @@ const Item = ({ item }) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        curso:"hand"
+       
       }}
     >
       <Box
@@ -38,6 +39,7 @@ const Item = ({ item }) => {
           color: "white",
           fontWeight: "bolder",
           backgroundColor: "orange",
+         
         }}
       >
         {item.name}

@@ -74,8 +74,10 @@ const DogUpdate = () => {
               elevation={9}
               sx={{
                 margin:"0 10px",
-                display:"flex",
-                width: desktop ? "700px" : "400px",
+                flex:"initial",
+                overflow:"auto",
+                // display:"flex",
+                // width: desktop ? "700px" : "300px",
                 backgroundColor: "primari.main",
               }}
             >
