@@ -239,8 +239,8 @@ export const createDog = (data, file, token, history) => {
     uploadBytes(storageRef, file)
       .then(() => getDownloadURL(storageRef))
       .then((url) => {
-        data = { ...data, url:url };
-        console.log(data)
+        data = { ...data, url: url };
+        console.log(data);
         return axios.post(`/api/dogCreate`, data, { headers: { token } });
       })
       .then((response) => {
@@ -249,12 +249,16 @@ export const createDog = (data, file, token, history) => {
         if (res === "access denied, token expered or incorrect")
           return login(history);
 
-        if (res.message === "Dog creado con éxito")
+        if (res.message === "Dog creado con éxito") {
+          getDogDb();
+          history.push("/home");
           return swal("Exito!", "Se ha agredo!", "success");
-
+        }
         return swal("Error!", "Faltan algunos datos!", "error");
       })
-      .catch((error) => swal(`Error!", "No se pudo guardar! ${error.message}`, "error"));
+      .catch((error) =>
+        swal(`Error!", "No se pudo guardar! ${error.message}`, "error")
+      );
   };
 };
 
