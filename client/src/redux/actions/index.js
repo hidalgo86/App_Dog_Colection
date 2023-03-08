@@ -11,7 +11,21 @@ import {
   REMOVE_DOG,
 } from "../types";
 import axios from "axios";
+import { initializeApp } from "firebase/app";
+import { getStorage, uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import swal from "sweetalert";
+
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: "colection-d1206.firebaseapp.com",
+  projectId: "colection-d1206",
+  storageBucket: "colection-d1206.appspot.com",
+  messagingSenderId: "878545419025",
+  appId: "1:878545419025:web:1844b7eac5e2e2cdbeaab0",
+};
+
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
 
 //Metodo para solicitar los dog de api externa y db:
 export const getDogAll = () => {
@@ -167,17 +181,16 @@ export const getDogDetail = (data) => {
       dispatch({
         type: DETAIL_DOG,
         payload: data,
-      })
-      
+      });
     } catch (error) {
       console.log(error.message);
       dispatch({
         type: ERROR_SOLICITUD,
         payload: error.message,
-      })
+      });
     }
-  }
-}
+  };
+};
 
 //Metodo para importar todos los temperamentos de la db:
 export const getTemperament = () => {
@@ -214,13 +227,23 @@ export const removeDog = (data) => {
 };
 
 //Metodo para crear un dog:
-export const createDog = (data, token, history) => {
+export const createDog = (data, file, token, history) => {
   return function (dispatch) {
     // if (!token) return swal("Disculpa!", "Debe iniciar Sesion!", "warning");
-    if (!token) return login(history)
+    if (!token) return login(history);
 
-    axios.post(`/api/dogCreate`, data, { headers: { token } }).then(
-      (response) => {
+    if (!data || !file) {
+      return swal("Error!", "Faltan algunos datos!", "error");
+    }
+    const storageRef = ref(storage, `dogs/${file.name}`);
+    uploadBytes(storageRef, file)
+      .then(() => getDownloadURL(storageRef))
+      .then((url) => {
+        data = { ...data, url:url };
+        console.log(data)
+        return axios.post(`/api/dogCreate`, data, { headers: { token } });
+      })
+      .then((response) => {
         let res = response.data;
 
         if (res === "access denied, token expered or incorrect")
@@ -230,9 +253,8 @@ export const createDog = (data, token, history) => {
           return swal("Exito!", "Se ha agredo!", "success");
 
         return swal("Error!", "Faltan algunos datos!", "error");
-      },
-      (error) => swal("Error!", "No se pudo guardar!", "error")
-    );
+      })
+      .catch((error) => swal(`Error!", "No se pudo guardar! ${error.message}`, "error"));
   };
 };
 

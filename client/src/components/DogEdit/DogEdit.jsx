@@ -76,8 +76,6 @@ const DogUpdate = () => {
                 margin:"0 10px",
                 flex:"initial",
                 overflow:"auto",
-                // display:"flex",
-                // width: desktop ? "700px" : "300px",
                 backgroundColor: "primari.main",
               }}
             >

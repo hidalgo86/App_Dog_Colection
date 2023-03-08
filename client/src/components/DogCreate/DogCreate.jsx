@@ -17,15 +17,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { createDog, getTemperament } from "../../redux/actions";
 import fondo from "../../img/crear.jpg";
 import { useHistory } from "react-router-dom";
-import { fill } from "@cloudinary/url-gen/actions/resize";
-import { CloudinaryImage } from "@cloudinary/url-gen";
-import {AdvancedImage} from '@cloudinary/react';
+import Image from "./Image/Image";
 
 const DogCreate = () => {
-  const myImage = new CloudinaryImage("sample", {
-    cloudName: "dpwgkuel4",
-  }).resize(fill().width(100).height(150));
-
   const dispatch = useDispatch();
   const [form, setForm] = useState({
     temperament: "",
@@ -38,6 +32,7 @@ const DogCreate = () => {
     lifeSpanMax: "",
     temperamentIndex: [],
   });
+  const [file, setFile] = useState();
 
   let history = useHistory();
 
@@ -103,7 +98,7 @@ const DogCreate = () => {
       temperament: form.temperamentIndex.map((value) => value.split(":")[0]),
     };
 
-    dispatch(createDog(data, token, history));
+    dispatch(createDog(data, file, token, history));
 
     setForm({
       temperament: "",
@@ -429,6 +424,9 @@ const DogCreate = () => {
               </Box>
             ) : null}
             {/********************* Boton Agregar ***************************/}
+            <Box sx={{width:"80%",   margin: "0 auto", display:"flex"}}>
+              <Image setFile={setFile} />
+            </Box>
 
             <Button
               aria-label="Boton Crear nueva mascota"

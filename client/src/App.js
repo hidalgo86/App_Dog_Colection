@@ -10,11 +10,13 @@ import DogEdit from "./components/DogEdit/DogEdit";
 import DogDetail from "./components/DogDetail/DogDetail";
 import UserLogin from "./components/Login/Login";
 import UserCreate from "./components/Login/UserCreate/UserCreate";
+// import Image from "./components/DogCreate/Image/Image";
 
 function App() {
   return (
     <React.Fragment>
       <Route exact path="/" component={Landing} />
+      {/* <Route exact path="/Image" component={Image} /> */}
       <Route exact path="/home" component={Home} />
       <Route exact path="/home/admin/contact" component={Contact} />
       <Route exact path="/home/dog/create" component={DogCreate} />

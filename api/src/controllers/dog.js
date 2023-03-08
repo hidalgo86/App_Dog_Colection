@@ -52,13 +52,14 @@ const controller = {
   //Metodo para Crear perro:
   dogCreate: async (req, res) => {
     try {
-      let { name, height, weight, lifeSpan, temperament } = req.body;
+      let { name, height, weight, lifeSpan, temperament, url } = req.body;
 
       let dog = await Dog.create({
         name,
         height,
         weight,
         lifeSpan,
+        image:url
       });
       await dog.addTemperaments(temperament);
 

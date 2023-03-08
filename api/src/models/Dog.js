@@ -28,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
       lifeSpan: {
         type: DataTypes.STRING,
       },
+      image: {
+        type: DataTypes.STRING,
+      },
     },
     {
       timestamps: false,
