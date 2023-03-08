@@ -25,6 +25,6 @@ require("dotenv").config();
 // Syncing all the models at once.
 
   server.listen(process.env.PORT, async () => {
-    sequelize.sync({force:true});
+    sequelize.authenticate();
     console.log(`%s listening at ${process.env.PORT}`)
   });
