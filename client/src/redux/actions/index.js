@@ -250,9 +250,8 @@ export const createDog = (data, file, token, history) => {
           return login(history);
 
         if (res.message === "Dog creado con éxito") {
-          getDogDb();
-          history.push("/home");
-          return swal("Exito!", "Se ha agredo!", "success");
+        
+          return home(history);
         }
         return swal("Error!", "Faltan algunos datos!", "error");
       })
@@ -337,6 +336,19 @@ let login = (history) => {
   }).then((result) => {
     if (!result) {
       return history.push("/home/user/login");
+    }
+  });
+};
+
+let home = (history) => {
+  swal({
+    title: "Exito!",
+    text: "Se ha agregado!",
+    icon: "success",
+    buttons: ["Home", "cancelar"],
+  }).then((result) => {
+    if (!result) {
+      return history.push("/home");
     }
   });
 };
