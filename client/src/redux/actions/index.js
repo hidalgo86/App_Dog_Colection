@@ -244,7 +244,7 @@ export const createDog = (data, file, token, history) => {
         return axios.post(`/api/dogCreate`, data, { headers: { token } });
       })
       .then((response) => {
-        let res = response.data;
+        let res = response.data; 
 
         if (res === "access denied, token expered or incorrect")
           return login(history);
