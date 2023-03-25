@@ -50,6 +50,7 @@ const Item = ({ item }) => {
           backgroundColor: "rgba(255, 166, 0, 0.534)",
           color: "white",
         }}
+        
       >
         <Box><b>Peso:</b> {item.weight} kg</Box>
       </Box>
