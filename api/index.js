@@ -25,6 +25,16 @@ require("dotenv").config();
 // Syncing all the models at once.
 
   server.listen(process.env.PORT, async () => {
-    sequelize.authenticate();
+    sequelize.sync({force:true});
     console.log(`%s listening at ${process.env.PORT}`)
   });
+
+
+  // "production": {
+  //   "username": "postgres",
+  //   "password": "D1oEErUOlGa4KQhPFkYb",
+  //   "database": "railway",
+  //   "host": "containers-us-west-16.railway.app",
+  //   "dialect": "postgres",
+  //   "port":7778
+  // }

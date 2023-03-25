@@ -4,7 +4,7 @@ import Page from "../Page/Page";
 import { useSelector } from "react-redux";
 
 const DogDetail = () => {
-  let data = useSelector((state) => state.detail);
+  let data = useSelector((state) => state.dogs.detail);
 
   if (data.name) localStorage.setItem("dog", JSON.stringify(data));
   let dog = JSON.parse(localStorage.getItem("dog"));

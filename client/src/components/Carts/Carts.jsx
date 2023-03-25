@@ -16,10 +16,10 @@ const Carts = () => {
 
   let dogs = 
     useSelector((state) => {
-      if (state.dogs.length) {
-        localStorage.setItem("dogs", JSON.stringify(state.dogs));
+      if (state.dogs.dogsAll.length) {
+        localStorage.setItem("dogs", JSON.stringify(state.dogs.dogsAll));
       }
-      return state.dogs.length ? state.dogs : JSON.parse(localStorage.getItem("dogs"));
+      return state.dogs.dogsAll.length ? state.dogs.dogsAll : JSON.parse(localStorage.getItem("dogs"));
     });
 
   const [pag, setPag] = useState(1);

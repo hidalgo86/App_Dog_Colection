@@ -47,7 +47,7 @@ const DogUpdate = () => {
     dispatch(dogsEdit());
   }, [dispatch]);
 
-  const dogs = useSelector((state) => state.dogsEdit);
+  const dogs = useSelector((state) => state.dogs.dogsEdit);
 
   const token = localStorage.getItem("token");
 

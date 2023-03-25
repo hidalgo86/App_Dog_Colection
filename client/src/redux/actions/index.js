@@ -1,15 +1,4 @@
-import {
-  DETAIL_DOG,
-  EDIT_DOG,
-  ERROR_SOLICITUD,
-  FILTER_DOGS,
-  GET_DOG_All,
-  GET_DOG_API,
-  GET_DOG_DB,
-  GET_DOG_NAME,
-  GET_TEMPERAMENT,
-  REMOVE_DOG,
-} from "../types";
+import { actions } from "../dogsSlice";
 import axios from "axios";
 import { initializeApp } from "firebase/app";
 import { getStorage, uploadBytes, getDownloadURL, ref } from "firebase/storage";
@@ -32,17 +21,11 @@ export const getDogAll = () => {
   return (dispatch) => {
     axios.get("/api/dogAll").then(
       (response) => {
-        dispatch({
-          type: GET_DOG_All,
-          payload: response.data,
-        });
+        dispatch(actions.getDogAll(response.data));
       },
       (error) => {
         console.log(error.message);
-        dispatch({
-          type: ERROR_SOLICITUD,
-          payload: [error.message],
-        });
+        dispatch(actions.getError(error.message));
       }
     );
   };
@@ -53,17 +36,11 @@ export const getDogApi = () => {
   return (dispatch) => {
     axios.get("/api/dogApi").then(
       (response) => {
-        dispatch({
-          type: GET_DOG_API,
-          payload: response.data,
-        });
+        dispatch(actions.getDogApi(response.data));
       },
       (error) => {
         console.log(error.message);
-        dispatch({
-          type: ERROR_SOLICITUD,
-          payload: [error.message],
-        });
+        dispatch(actions.getError(error.message));
       }
     );
   };
@@ -79,17 +56,11 @@ export const getDogDb = () => {
         if (!data.length)
           return swal("Disculpa!", "No hay mascotas creada!", "warning");
 
-        dispatch({
-          type: GET_DOG_DB,
-          payload: response.data,
-        });
+        dispatch(actions.getDogDb(response.data));
       },
       (error) => {
         console.log(error.message);
-        dispatch({
-          type: ERROR_SOLICITUD,
-          payload: [error.message],
-        });
+        dispatch(actions.getError(error.message));
       }
     );
   };
@@ -100,17 +71,11 @@ export const dogsEdit = () => {
   return (dispatch) => {
     axios.get("/api/dogDb").then(
       (response) => {
-        dispatch({
-          type: EDIT_DOG,
-          payload: response.data,
-        });
+        dispatch(actions.dogsEdit(response.data));
       },
       (error) => {
         console.log(error.message);
-        dispatch({
-          type: ERROR_SOLICITUD,
-          payload: [error.message],
-        });
+        dispatch(actions.getError(error.message));
       }
     );
   };
@@ -121,17 +86,11 @@ export const getDogName = (name) => {
   return (dispatch) => {
     axios.get(`/api/dogAll?name=${name}`).then(
       (response) => {
-        dispatch({
-          type: GET_DOG_NAME,
-          payload: response.data,
-        });
+        dispatch(actions.getDogName(response.data));
       },
       (error) => {
         console.log(error.message);
-        dispatch({
-          type: ERROR_SOLICITUD,
-          payload: [error.message],
-        });
+        dispatch(actions.getError(error.message));
       }
     );
   };
@@ -170,7 +129,7 @@ export const getFilterDogs = ({ temperament, name, weight, order }) => {
         }
       }
 
-      dispatch({ type: FILTER_DOGS, payload: data });
+      dispatch(actions.getFilterDogs(data));
     });
   };
 };
@@ -178,16 +137,10 @@ export const getFilterDogs = ({ temperament, name, weight, order }) => {
 export const getDogDetail = (data) => {
   return (dispatch) => {
     try {
-      dispatch({
-        type: DETAIL_DOG,
-        payload: data,
-      });
+      dispatch(actions.getDogDetail(data));
     } catch (error) {
       console.log(error.message);
-      dispatch({
-        type: ERROR_SOLICITUD,
-        payload: error.message,
-      });
+      dispatch(actions.getError(error.message));
     }
   };
 };
@@ -196,17 +149,10 @@ export const getDogDetail = (data) => {
 export const getTemperament = () => {
   return (dispatch) => {
     axios.get("/api/temperaments").then(
-      (response) =>
-        dispatch({
-          type: GET_TEMPERAMENT,
-          payload: response.data,
-        }),
+      (response) => dispatch(actions.getTemperament(response.data)),
       (error) => {
         console.log(error.message);
-        dispatch({
-          type: ERROR_SOLICITUD,
-          payload: [error.message],
-        });
+        dispatch(actions.getError(error.message));
       }
     );
   };
@@ -216,10 +162,7 @@ export const getTemperament = () => {
 export const removeDog = (data) => {
   return function (dispatch) {
     try {
-      dispatch({
-        type: REMOVE_DOG,
-        payload: [],
-      });
+      dispatch(actions.removeDog([]));
     } catch (error) {
       console.log(error.message);
     }
@@ -229,35 +172,37 @@ export const removeDog = (data) => {
 //Metodo para crear un dog:
 export const createDog = (data, file, token, history) => {
   return function (dispatch) {
-    // if (!token) return swal("Disculpa!", "Debe iniciar Sesion!", "warning");
     if (!token) return login(history);
 
-    if (!data || !file) {
+    if (!data) {
       return swal("Error!", "Faltan algunos datos!", "error");
     }
-    const storageRef = ref(storage, `dogs/${file.name}`);
-    uploadBytes(storageRef, file)
-      .then(() => getDownloadURL(storageRef))
-      .then((url) => {
-        data = { ...data, url: url };
-        console.log(data);
-        return axios.post(`/api/dogCreate`, data, { headers: { token } });
-      })
-      .then((response) => {
-        let res = response.data; 
 
-        if (res === "access denied, token expered or incorrect")
+    const create = async () => {
+      try {
+        if (file) {
+          let referencia = ref(storage, `dogs/${file.name}`);
+          await uploadBytes(referencia, file);
+          let url = await getDownloadURL(referencia);
+          data = { ...data, url: url };
+        }
+
+        let result = await axios.post(`/api/dogCreate`, data, {
+          headers: { token },
+        });
+
+        if (result.data === "access denied, token expered or incorrect")
           return login(history);
 
-        if (res.message === "Dog creado con éxito") {
-        
+        if (result.data.message === "Dog creado con éxito") {
           return home(history);
         }
-        return swal("Error!", "Faltan algunos datos!", "error");
-      })
-      .catch((error) =>
-        swal(`Error!", "No se pudo guardar! ${error.message}`, "error")
-      );
+        return swal("Error!", "Error interno!", "error");
+      } catch (error) {
+        swal("Error!", "No se pudo guardar! ${error.message}", "error");
+      }
+    };
+    create();
   };
 };
 
