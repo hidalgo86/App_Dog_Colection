@@ -42,7 +42,7 @@ const DogUpdate = () => {
     dispatch(getTemperament());
   }, []);
 
-  let temperaments = useSelector((state) => state.temperament);
+  let temperaments = useSelector((state) => state.dogs.temperament);
 
   let ArrayNumber = Array.from(Array(101), (_, index) => index);
   let ArrayWeightMax = ArrayNumber.slice(form.weightMin, -1);

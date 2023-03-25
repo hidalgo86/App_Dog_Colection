@@ -25,7 +25,7 @@ export const getDogAll = () => {
       },
       (error) => {
         console.log(error.message);
-        dispatch(getError(error.message));
+        dispatch(getError(`getDogAll: ${error.message}`));
       }
     );
   };
@@ -40,7 +40,7 @@ export const getDogApi = () => {
       },
       (error) => {
         console.log(error.message);
-        dispatch(getError(error.message));
+        dispatch(getError(`getDogApi: ${error.message}`));
       }
     );
   };
@@ -60,7 +60,7 @@ export const getDogDb = () => {
       },
       (error) => {
         console.log(error.message);
-        dispatch(getError(error.message));
+        dispatch(getError(`getDogDB: ${error.message}`));
       }
     );
   };

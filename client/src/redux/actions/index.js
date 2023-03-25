@@ -172,34 +172,37 @@ export const removeDog = (data) => {
 //Metodo para crear un dog:
 export const createDog = (data, file, token, history) => {
   return function (dispatch) {
-    // if (!token) return swal("Disculpa!", "Debe iniciar Sesion!", "warning");
     if (!token) return login(history);
 
-    if (!data || !file) {
+    if (!data) {
       return swal("Error!", "Faltan algunos datos!", "error");
     }
-    const storageRef = ref(storage, `dogs/${file.name}`);
-    uploadBytes(storageRef, file)
-      .then(() => getDownloadURL(storageRef))
-      .then((url) => {
-        data = { ...data, url: url };
-        console.log(data);
-        return axios.post(`/api/dogCreate`, data, { headers: { token } });
-      })
-      .then((response) => {
-        let res = response.data;
 
-        if (res === "access denied, token expered or incorrect")
+    const create = async () => {
+      try {
+        if (file) {
+          let referencia = ref(storage, `dogs/${file.name}`);
+          await uploadBytes(referencia, file);
+          let url = await getDownloadURL(referencia);
+          data = { ...data, url: url };
+        }
+
+        let result = await axios.post(`/api/dogCreate`, data, {
+          headers: { token },
+        });
+
+        if (result.data === "access denied, token expered or incorrect")
           return login(history);
 
-        if (res.message === "Dog creado con éxito") {
+        if (result.data.message === "Dog creado con éxito") {
           return home(history);
         }
-        return swal("Error!", "Faltan algunos datos!", "error");
-      })
-      .catch((error) =>
-        swal(`Error!", "No se pudo guardar! ${error.message}`, "error")
-      );
+        return swal("Error!", "Error interno!", "error");
+      } catch (error) {
+        swal("Error!", "No se pudo guardar! ${error.message}", "error");
+      }
+    };
+    create();
   };
 };
 

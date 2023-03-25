@@ -13,7 +13,7 @@ const Landing = () => {
     dispatch(getDogAll());
   }, []);
 
-  let dogs = useSelector((state) => state.dogs);
+  let dogs = useSelector((state) => state.dogs.dogsAll);
 
   return (
     <Page

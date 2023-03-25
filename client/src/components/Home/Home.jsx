@@ -9,7 +9,7 @@ const Home = () => {
   const desktop = useMediaQuery("(min-width:600px)");
   let dispatch = useDispatch();
   useSelector((state) => {
-    if (!state.dogs?.length) dispatch(getDogAll());
+    if (!state.dogs.dogsAll?.length) dispatch(getDogAll());
   });
 
   return (

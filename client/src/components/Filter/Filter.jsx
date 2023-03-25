@@ -29,7 +29,7 @@ const Filter = ({modal}) => {
     dispatch(getTemperament());
   }, []);
 
-  let temperaments = useSelector((state) => state.temperament);
+  let temperaments = useSelector((state) => state.dogs.temperament);
 
   const [form, setForm] = useState({
     temperament: "",
