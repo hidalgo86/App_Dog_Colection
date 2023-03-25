@@ -8,6 +8,7 @@
     "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.9",
+    "@reduxjs/toolkit": "^1.9.3",
     "axios": "^0.27.2",
     "dotenv": "^16.0.3",
     "firebase": "^9.17.2",

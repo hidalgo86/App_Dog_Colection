@@ -1,4 +1,15 @@
-import { actions } from "../dogsSlice";
+import {
+  DETAIL_DOG,
+  EDIT_DOG,
+  ERROR_SOLICITUD,
+  FILTER_DOGS,
+  GET_DOG_All,
+  GET_DOG_API,
+  GET_DOG_DB,
+  GET_DOG_NAME,
+  GET_TEMPERAMENT,
+  REMOVE_DOG,
+} from "../types";
 import axios from "axios";
 import { initializeApp } from "firebase/app";
 import { getStorage, uploadBytes, getDownloadURL, ref } from "firebase/storage";
@@ -21,11 +32,17 @@ export const getDogAll = () => {
   return (dispatch) => {
     axios.get("/api/dogAll").then(
       (response) => {
-        dispatch(actions.getDogAll(response.data));
+        dispatch({
+          type: GET_DOG_All,
+          payload: response.data,
+        });
       },
       (error) => {
         console.log(error.message);
-        dispatch(actions.getError(error.message));
+        dispatch({
+          type: ERROR_SOLICITUD,
+          payload: [error.message],
+        });
       }
     );
   };
@@ -36,11 +53,17 @@ export const getDogApi = () => {
   return (dispatch) => {
     axios.get("/api/dogApi").then(
       (response) => {
-        dispatch(actions.getDogApi(response.data));
+        dispatch({
+          type: GET_DOG_API,
+          payload: response.data,
+        });
       },
       (error) => {
         console.log(error.message);
-        dispatch(actions.getError(error.message));
+        dispatch({
+          type: ERROR_SOLICITUD,
+          payload: [error.message],
+        });
       }
     );
   };
@@ -56,11 +79,17 @@ export const getDogDb = () => {
         if (!data.length)
           return swal("Disculpa!", "No hay mascotas creada!", "warning");
 
-        dispatch(actions.getDogDb(response.data));
+        dispatch({
+          type: GET_DOG_DB,
+          payload: response.data,
+        });
       },
       (error) => {
         console.log(error.message);
-        dispatch(actions.getError(error.message));
+        dispatch({
+          type: ERROR_SOLICITUD,
+          payload: [error.message],
+        });
       }
     );
   };
@@ -71,11 +100,17 @@ export const dogsEdit = () => {
   return (dispatch) => {
     axios.get("/api/dogDb").then(
       (response) => {
-        dispatch(actions.dogsEdit(response.data));
+        dispatch({
+          type: EDIT_DOG,
+          payload: response.data,
+        });
       },
       (error) => {
         console.log(error.message);
-        dispatch(actions.getError(error.message));
+        dispatch({
+          type: ERROR_SOLICITUD,
+          payload: [error.message],
+        });
       }
     );
   };
@@ -86,11 +121,17 @@ export const getDogName = (name) => {
   return (dispatch) => {
     axios.get(`/api/dogAll?name=${name}`).then(
       (response) => {
-        dispatch(actions.getDogName(response.data));
+        dispatch({
+          type: GET_DOG_NAME,
+          payload: response.data,
+        });
       },
       (error) => {
         console.log(error.message);
-        dispatch(actions.getError(error.message));
+        dispatch({
+          type: ERROR_SOLICITUD,
+          payload: [error.message],
+        });
       }
     );
   };
@@ -129,7 +170,7 @@ export const getFilterDogs = ({ temperament, name, weight, order }) => {
         }
       }
 
-      dispatch(actions.getFilterDogs(data));
+      dispatch({ type: FILTER_DOGS, payload: data });
     });
   };
 };
@@ -137,10 +178,16 @@ export const getFilterDogs = ({ temperament, name, weight, order }) => {
 export const getDogDetail = (data) => {
   return (dispatch) => {
     try {
-      dispatch(actions.getDogDetail(data));
+      dispatch({
+        type: DETAIL_DOG,
+        payload: data,
+      });
     } catch (error) {
       console.log(error.message);
-      dispatch(actions.getError(error.message));
+      dispatch({
+        type: ERROR_SOLICITUD,
+        payload: error.message,
+      });
     }
   };
 };
@@ -149,10 +196,17 @@ export const getDogDetail = (data) => {
 export const getTemperament = () => {
   return (dispatch) => {
     axios.get("/api/temperaments").then(
-      (response) => dispatch(actions.getTemperament(response.data)),
+      (response) =>
+        dispatch({
+          type: GET_TEMPERAMENT,
+          payload: response.data,
+        }),
       (error) => {
         console.log(error.message);
-        dispatch(actions.getError(error.message));
+        dispatch({
+          type: ERROR_SOLICITUD,
+          payload: [error.message],
+        });
       }
     );
   };
@@ -162,7 +216,10 @@ export const getTemperament = () => {
 export const removeDog = (data) => {
   return function (dispatch) {
     try {
-      dispatch(actions.removeDog([]));
+      dispatch({
+        type: REMOVE_DOG,
+        payload: [],
+      });
     } catch (error) {
       console.log(error.message);
     }
@@ -187,12 +244,13 @@ export const createDog = (data, file, token, history) => {
         return axios.post(`/api/dogCreate`, data, { headers: { token } });
       })
       .then((response) => {
-        let res = response.data;
+        let res = response.data; 
 
         if (res === "access denied, token expered or incorrect")
           return login(history);
 
         if (res.message === "Dog creado con éxito") {
+        
           return home(history);
         }
         return swal("Error!", "Faltan algunos datos!", "error");
