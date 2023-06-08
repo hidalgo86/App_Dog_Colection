@@ -7,7 +7,7 @@ require("./models");
 const { CORS_URL } = process.env;
 
 const server = express();
-server.name = "API";
+server.name = "API"; 
 
 server.use(cors());
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
