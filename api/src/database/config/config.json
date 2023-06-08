@@ -19,11 +19,11 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "dogs_jmyk_user",
-    "password": "YaBfVT3VnZ7Hq0Sfgx5YBUbcbOiSVMKO",
-    "database": "dogs_jmyk",
-    "host": "dpg-cfb71rhgp3jsh69hb180-a",
+    "username": "postgres",
+    "password": "5LGihJnjnCcbok3XRe15",
+    "database": "railway",
+    "host": "containers-us-west-16.railway.app",
     "dialect": "postgres",
-    "port":5432
+    "port":7778
   }
 }
