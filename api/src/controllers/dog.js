@@ -49,7 +49,7 @@ const controller = {
     }
   },
 
-  //Metodo para Crear perro:
+  // Metodo para Crear perro:
   dogCreate: async (req, res) => {
     try {
       let { name, height, weight, lifeSpan, temperament, url } = req.body;
@@ -90,9 +90,9 @@ const controller = {
         }
       );
 
-      await Dog_Temperament.destroy({ where: { DogId:id } });
+      await Dog_Temperament.destroy({ where: { DogId: id } });
 
-      let dog = await Dog.findByPk(id)
+      let dog = await Dog.findByPk(id);
 
       await dog.addTemperaments(temperament);
 
@@ -107,7 +107,7 @@ const controller = {
   dogDelete: async (req, res) => {
     try {
       let { id } = req.params;
-      await Dog_Temperament.destroy({ where: { DogId:id } });
+      await Dog_Temperament.destroy({ where: { DogId: id } });
       await Dog.destroy({ where: { id } });
       res.status(200).json({ message: "Dog eliminado con éxito" });
     } catch (error) {
@@ -135,7 +135,6 @@ async function get_dogs_api_externa() {
     const weightMin = weight[0];
     const weightMax = weight[1] ? weight[1] : weight[0];
     const temperament = dog.temperament ? dog.temperament.split(", ") : [];
-
     return {
       id: dog.id,
       name: dog.name,
@@ -145,10 +144,11 @@ async function get_dogs_api_externa() {
       weightMax,
       lifeSpan: dog.life_span,
       temperament,
-      image: dog.image.url,
+      image: `https://cdn2.thedogapi.com/images/${dog.reference_image_id}.jpg`,
     };
   });
-
+  
+  console.log(dogs)
   return dogs;
 }
 
