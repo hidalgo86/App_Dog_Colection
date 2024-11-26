@@ -11,7 +11,7 @@ const Landing = () => {
 
   useEffect(() => {
     dispatch(getDogAll());
-  }, []);
+  }, [dispatch]);
 
   let dogs = useSelector((state) => state.dogs.dogsAll);
 

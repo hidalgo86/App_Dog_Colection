@@ -8,9 +8,9 @@ import {
   ListItemText,
   Modal,
   Paper,
-  Typography,
+  // Typography,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+// import MenuIcon from "@mui/icons-material/Menu";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { Box } from "@mui/system";

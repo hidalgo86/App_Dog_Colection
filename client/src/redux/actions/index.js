@@ -199,7 +199,7 @@ export const createDog = (data, file, token, history) => {
         }
         return swal("Error!", "Error interno!", "error");
       } catch (error) {
-        swal("Error!", "No se pudo guardar! ${error.message}", "error");
+        swal("Error!", `No se pudo guardar! ${error.message}`, "error");
       }
     };
     create();

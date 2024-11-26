@@ -40,7 +40,7 @@ const DogUpdate = () => {
 
   useEffect(() => {
     dispatch(getTemperament());
-  }, []);
+  }, [dispatch]);
 
   let temperaments = useSelector((state) => state.dogs.temperament);
 

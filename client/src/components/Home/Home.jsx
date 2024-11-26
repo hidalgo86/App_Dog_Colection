@@ -1,4 +1,4 @@
-import { Box, ListItemText, useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import Page from "../Page/Page";
 import Carts from "../Carts/Carts.jsx";
 import Filter from "../Filter/Filter";

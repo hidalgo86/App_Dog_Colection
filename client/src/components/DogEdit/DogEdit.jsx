@@ -8,7 +8,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  useMediaQuery,
+  // useMediaQuery,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect } from "react";
@@ -42,7 +42,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const DogUpdate = () => {
   const dispatch = useDispatch();
-  const desktop = useMediaQuery("(min-width:700px)");
+  // const desktop = useMediaQuery("(min-width:700px)");
   useEffect(() => {
     dispatch(dogsEdit());
   }, [dispatch]);
