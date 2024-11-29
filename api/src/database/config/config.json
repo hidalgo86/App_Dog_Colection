@@ -20,9 +20,9 @@
   },
   "production": {
     "username": "postgres",
-    "password": "JRORnmNsbgQLtEmZAZnmYzLmZElXvBLw",
+    "password": "vuYRdpqLULsayMOchzXrtjzKsxbvweVW",
     "database": "railway",
-    "host": "containers-us-west-16.railway.app",
+    "host": "junction.proxy.rlwy.net:51519",
     "dialect": "postgres",
     "port":5432
   }

@@ -11,35 +11,8 @@ const db = {};
 
 // Configuracion de conexion a postgres:
 let sequelize;
-console.log(process.env.NODE_ENV)
-console.log(config)
-console.log(process.env.DATABASE_URL)
-// if (config.use_env_variable) {
-if (process.env.NODE_ENV==="production") {
-  // sequelize = new Sequelize(config);
-  console.log("adentro")
-  try {
-    
-    sequelize= new Sequelize(process.env.DATABASE_URL, {
-      dialect: "postgres",
-      pool: {
-        max: 3,
-        min: 1,
-        idle: 10000,
-      },
-      dialectOptions: {
-        ssl: {
-          require: true,
-          rejectUnauthorized: false,
-        },
-        keepAlive: true,
-      },
-      ssl: true,
-    })
-
-  } catch (error) {
-    console.log("error:", error.message)
-  }
+if (process.env.NODE_ENV) {
+  sequelize = new Sequelize(config);
 } else {
   sequelize = new Sequelize(
     config.database,
