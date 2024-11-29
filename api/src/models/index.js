@@ -12,6 +12,7 @@ const db = {};
 // Configuracion de conexion a postgres:
 let sequelize;
 console.log(config.use_env_variable)
+console.log(process.env.NODE_ENV)
 if (config.use_env_variable) {
   sequelize = new Sequelize(config);
 } else {
