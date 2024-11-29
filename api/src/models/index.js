@@ -15,7 +15,23 @@ console.log(process.env.NODE_ENV)
 console.log(config)
 // if (config.use_env_variable) {
 if (process.env.NODE_ENV==="production") {
-  sequelize = new Sequelize(config);
+  // sequelize = new Sequelize(config);
+  new Sequelize("postgresql://postgres:JRORnmNsbgQLtEmZAZnmYzLmZElXvBLw@:5432/railway" {
+    dialect: "postgres",
+    pool: {
+      max: 3,
+      min: 1,
+      idle: 10000,
+    },
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+      keepAlive: true,
+    },
+    ssl: true,
+  })
 } else {
   sequelize = new Sequelize(
     config.database,
