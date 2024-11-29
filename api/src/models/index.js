@@ -11,8 +11,19 @@ const db = {};
 
 // Configuracion de conexion a postgres:
 let sequelize;
-if (process.env.NODE_ENV) {
-  sequelize = new Sequelize(config);
+if (process.env.NODE_ENV === production) {
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect:"postgres",
+    protocol: "postgres",
+    logging: false,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+      keepAlive: true,
+    },
+  });
 } else {
   sequelize = new Sequelize(
     config.database,

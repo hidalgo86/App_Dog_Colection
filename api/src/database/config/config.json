@@ -20,7 +20,7 @@
   },
   "production": {
     "username": "postgres",
-    "password": "vuYRdpqLULsayMOchzXrtjzKsxbvweVW",
+    "password": "JRORnmNsbgQLtEmZAZnmYzLmZElXvBLw",
     "database": "railway",
     "host": "junction.proxy.rlwy.net:51519",
     "dialect": "postgres",
