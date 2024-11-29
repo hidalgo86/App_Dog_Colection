@@ -59,7 +59,7 @@ const controller = {
         height,
         weight,
         lifeSpan,
-        image:url
+        image: url,
       });
       await dog.addTemperaments(temperament);
 
@@ -147,8 +147,7 @@ async function get_dogs_api_externa() {
       image: `https://cdn2.thedogapi.com/images/${dog.reference_image_id}.jpg`,
     };
   });
-  
-  console.log(dogs)
+
   return dogs;
 }
 
