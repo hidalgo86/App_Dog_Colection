@@ -13,10 +13,11 @@ const db = {};
 let sequelize;
 console.log(process.env.NODE_ENV)
 console.log(config)
+console.log(process.env.DATABASE_URL)
 // if (config.use_env_variable) {
 if (process.env.NODE_ENV==="production") {
   // sequelize = new Sequelize(config);
-  new Sequelize("postgresql://postgres:JRORnmNsbgQLtEmZAZnmYzLmZElXvBLw@:5432/railway" {
+  new Sequelize(process.env.DATABASE_URL, {
     dialect: "postgres",
     pool: {
       max: 3,
