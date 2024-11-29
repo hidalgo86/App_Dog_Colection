@@ -13,7 +13,8 @@ const db = {};
 let sequelize;
 console.log(process.env.NODE_ENV)
 console.log(config)
-if (config.use_env_variable) {
+// if (config.use_env_variable) {
+if (process.env.NODE_ENV==="production") {
   sequelize = new Sequelize(config);
 } else {
   sequelize = new Sequelize(
