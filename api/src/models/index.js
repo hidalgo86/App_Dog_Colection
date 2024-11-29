@@ -17,22 +17,28 @@ console.log(process.env.DATABASE_URL)
 // if (config.use_env_variable) {
 if (process.env.NODE_ENV==="production") {
   // sequelize = new Sequelize(config);
-  new Sequelize(process.env.DATABASE_URL, {
-    dialect: "postgres",
-    pool: {
-      max: 3,
-      min: 1,
-      idle: 10000,
-    },
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
+  console.log("adentro")
+  try {
+    
+    new Sequelize(process.env.DATABASE_URL, {
+      dialect: "postgres",
+      pool: {
+        max: 3,
+        min: 1,
+        idle: 10000,
       },
-      keepAlive: true,
-    },
-    ssl: true,
-  })
+      dialectOptions: {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false,
+        },
+        keepAlive: true,
+      },
+      ssl: true,
+    })
+  } catch (error) {
+    console.log("error:", error.message)
+  }
 } else {
   sequelize = new Sequelize(
     config.database,
