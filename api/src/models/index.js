@@ -20,7 +20,7 @@ if (process.env.NODE_ENV==="production") {
   console.log("adentro")
   try {
     
-    new Sequelize(process.env.DATABASE_URL, {
+    sequelize= new Sequelize(process.env.DATABASE_URL, {
       dialect: "postgres",
       pool: {
         max: 3,
@@ -36,6 +36,7 @@ if (process.env.NODE_ENV==="production") {
       },
       ssl: true,
     })
+
   } catch (error) {
     console.log("error:", error.message)
   }
