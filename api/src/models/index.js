@@ -11,6 +11,7 @@ const db = {};
 
 // Configuracion de conexion a postgres:
 let sequelize;
+console.log(process.env.NODE_ENV)
 if (process.env.NODE_ENV === production) {
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect:"postgres",
