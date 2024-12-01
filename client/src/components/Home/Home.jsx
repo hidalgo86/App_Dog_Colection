@@ -1,9 +1,9 @@
 import { Box, useMediaQuery } from "@mui/material";
-import Page from "../Page/Page";
+import Page from "../Page/Page.jsx";
 import Carts from "../Carts/Carts.jsx";
-import Filter from "../Filter/Filter";
+import Filter from "../Filter/Filter.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { getDogAll } from "../../redux/actions";
+import { getDogAll } from "../../redux/actions/index.js";
 
 const Home = () => {
   const desktop = useMediaQuery("(min-width:600px)");

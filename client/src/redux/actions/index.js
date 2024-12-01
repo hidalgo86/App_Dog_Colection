@@ -5,7 +5,7 @@ import { getStorage, uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import swal from "sweetalert";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
+  apiKey: import.meta.env.VITE_API_KEY,
   authDomain: "colection-d1206.firebaseapp.com",
   projectId: "colection-d1206",
   storageBucket: "colection-d1206.appspot.com",

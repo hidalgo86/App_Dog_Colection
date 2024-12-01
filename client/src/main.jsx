@@ -1,30 +1,28 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import App from "./App.jsx";
+import reportWebVitals from "./reportWebVitals.js";
 import axios from "axios";
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
 import { BrowserRouter } from "react-router-dom";
-import dotenv from "dotenv";
+
 import "normalize.css";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material";
 import { orange } from "@mui/material/colors";
-dotenv.config();
 
 // la URL_base de las llamadas axios
-axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
+axios.defaults.baseURL = import.meta.VITE_API || "http://localhost:3001";
 
 const theme = createTheme({
   palette: {
     primary: orange,
-    secondary: orange, 
+    secondary: orange,
   },
 });
-
-ReactDOM.render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
@@ -33,8 +31,7 @@ ReactDOM.render(
         </BrowserRouter>
       </ThemeProvider>
     </Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

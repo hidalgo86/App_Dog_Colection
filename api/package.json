@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm install --omit=dev && node .",
+    "start": "node .",
     "test": "mocha -w ./tests/**/*.spec.js",
     "migration": "npx sequelize-cli db:migrate",
     "new-migration": "npx sequelize-cli migration:generate --name",
@@ -15,7 +15,7 @@
   "author": "Henry",
   "license": "ISC",
   "engines": {
-    "node": ">=12.18.3 <17",
+    "node": ">=12.18.3",
     "npm": ">=6.14.6"
   },
   "dependencies": {
