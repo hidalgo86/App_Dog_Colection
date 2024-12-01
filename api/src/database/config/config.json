@@ -18,5 +18,12 @@
     "host": "localhost",
     "dialect": "postgres"
   },
-  "production": {}
+  "production": {
+    "username": "postgres",
+    "password": "JRORnmNsbgQLtEmZAZnmYzLmZElXvBLw",
+    "database": "railway",
+    "host": "junction.proxy.rlwy.net:51519",
+    "dialect": "postgres",
+    "port":5432
+  }
 }
