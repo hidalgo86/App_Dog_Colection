@@ -14,9 +14,8 @@ import { createTheme } from "@mui/material";
 import { orange } from "@mui/material/colors";
 
 // la URL_base de las llamadas axios
-axios.defaults.baseURL = "https://appdogs-production.up.railway.app" || "http://localhost:3001";
-console.log("imprmir 1", import.meta)
-console.log("imprmir 2", import.meta.VITE_API)
+axios.defaults.baseURL = import.meta.VITE_API || "http://localhost:3001";
+
 const theme = createTheme({
   palette: {
     primary: orange,
