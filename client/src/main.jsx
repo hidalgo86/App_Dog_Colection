@@ -17,6 +17,9 @@ import { orange } from "@mui/material/colors";
 axios.defaults.baseURL = "https://appdogs-production.up.railway.app"
 // import.meta.VITE_API || "http://localhost:3001";
 
+console.log(import.meta.VITE_API)
+console.log(import.meta.VITE)
+
 const theme = createTheme({
   palette: {
     primary: orange,
