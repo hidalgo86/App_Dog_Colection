@@ -16,9 +16,6 @@ import { orange } from "@mui/material/colors";
 // la URL_base de las llamadas axios
 axios.defaults.baseURL = import.meta.env.VITE_API || "http://localhost:3001";
 
-console.log(import.meta.VITE_API);
-console.log(import.meta.VITE);
-
 const theme = createTheme({
   palette: {
     primary: orange,
